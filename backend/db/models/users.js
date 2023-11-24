@@ -35,6 +35,11 @@ const users = new Schema({
     type: Date,
     required: true,
   },
+  //Reference to Omni U Collection
+  omniUProgress: {
+    type: Schema.Types.ObjectId,
+    ref: 'Courses'
+  }
 },
   {
     timestamps: true

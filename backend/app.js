@@ -7,13 +7,15 @@ const express = require('express')
 const session = require('express-session')
 const mongoose = require('mongoose')
 
-//Router
-const userRoutes = require('./routes/userRoutes')
-
 //Config
 dotenv.config()
 const path = require('path')
 const app = express()
+
+//Router
+const userRoutes = require('./routes/userRoutes')
+const courseRoutes = require('./routes/courseRoutes')
+const videoRoutes = require('./routes/videoRoutes')
 
 //App Setup
 app.use(cookieParser())
@@ -38,7 +40,12 @@ app.get('/', (req, res) =>
   res.send('Hello')
 })
 
+//User Routes
 app.use('/api/users', userRoutes)
+//Course Routes
+app.use('/api/courses', courseRoutes)
+//Video Routes
+app.use('/api/courses/:id/videos', videoRoutes)
 
 app.listen(process.env.PORT, () =>
 {
