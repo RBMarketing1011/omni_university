@@ -7,6 +7,9 @@ const express = require('express')
 const session = require('express-session')
 const mongoose = require('mongoose')
 
+//Database
+const connectDB = require('./db/connection/connection')
+
 //Config
 dotenv.config()
 const path = require('path')
@@ -47,6 +50,10 @@ app.use('/api/courses', courseRoutes)
 //Video Routes
 app.use('/api/courses/:id/videos', videoRoutes)
 
+//Connect Database
+connectDB()
+
+//Server Start
 app.listen(process.env.PORT, () =>
 {
   console.log(`Server running on port ${ process.env.PORT }`)

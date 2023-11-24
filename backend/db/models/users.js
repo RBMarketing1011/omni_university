@@ -1,12 +1,11 @@
 const mongoose = require('mongoose')
 const { Schema } = mongoose
-const db = require('../connection/connection')
+const bcrypt = require('bcrypt')
 
 const users = new Schema({
-  id: {
+  _id: {
     type: String,
-    required: true,
-    unique: true,
+    required: true
   },
   name: {
     firstName: {
@@ -35,10 +34,17 @@ const users = new Schema({
     type: Date,
     required: true,
   },
-  //Reference to Omni U Collection
   omniUProgress: {
-    type: Schema.Types.ObjectId,
-    ref: 'Courses'
+    coursesComplete: {
+      type: [ String ],
+    },
+    videosComplete: {
+      type: [ String ],
+    }
+  },
+  completedOU: {
+    type: Boolean,
+    default: false
   }
 },
   {
@@ -46,17 +52,13 @@ const users = new Schema({
   }
 )
 
-users.pre('save', function (next)
+users.pre('save', async function (next)
 {
-  if (this.email) {
-    this.email = this.email.toLowerCase()
+  if (!this.isModified('password')) {
+    next()
   }
-
-  if (this.name) {
-    this.name.firstName = this.name.firstName.toLowerCase()
-    this.name.lastName = this.name.lastName.toLowerCase()
-  }
-  next()
+  const salt = await bcrypt.genSalt(10)
+  this.password = await bcrypt.hash(this.password, salt)
 })
 
 module.exports = mongoose.model('Users', users)
