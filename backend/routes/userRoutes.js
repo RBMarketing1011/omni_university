@@ -6,9 +6,13 @@ const {
 	userLogin,
 	userLogout,
 	getUser,
+	getAllUsers,
 	updateUser,
 	deleteUser,
 } = require('../controllers/usersController')
+
+router.route('')
+	.get(getAllUsers)
 
 router.route('/register')
 	.post(userRegister)

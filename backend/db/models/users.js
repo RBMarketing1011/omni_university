@@ -2,10 +2,6 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose
 
 const users = new Schema({
-  _id: {
-    type: String,
-    required: true
-  },
   name: {
     firstName: {
       type: String,
@@ -27,10 +23,6 @@ const users = new Schema({
   },
   role: {
     type: String,
-    required: true,
-  },
-  lastLogin: {
-    type: Date,
     required: true,
   },
   omniUProgress: {

@@ -28,8 +28,7 @@
     "express-async-handler": "^1.2.0",
     "express-session": "^1.17.3",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.0.1",
-    "uuid": "^9.0.1"
+    "mongoose": "^8.0.1"
   },
   "devDependencies": {
     "concurrently": "^8.2.2",

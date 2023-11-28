@@ -4,14 +4,18 @@ const router = express.Router()
 const {
 	createVideo,
 	getVideo,
+	getVideosInCourse,
 	updateVideo,
 	deleteVideo
 } = require('../controllers/videosController')
 
-router.route('/create')
+router.route('/:id/videos/create')
 	.post(createVideo)
 
-router.route('/:id')
+router.route('/:id/videos')
+	.get(getVideosInCourse)
+
+router.route('/:id/videos/:videoId')
 	.get(getVideo)
 	.put(updateVideo)
 	.delete(deleteVideo)

@@ -7,7 +7,12 @@ const express = require('express')
 const session = require('express-session')
 const mongoose = require('mongoose')
 
-//Database
+// //Database Schemas
+// const Users = require('./db/models/users')
+// const Courses = require('./db/models/courses')
+// const Videos = require('./db/models/videos')
+
+//Database Connection
 const connectDB = require('./db/connection/connection')
 
 //Config
@@ -38,6 +43,8 @@ app.use(
   })
 )
 
+
+//URL Mapping
 app.get('/', (req, res) =>
 {
   res.send('Hello')
@@ -48,7 +55,7 @@ app.use('/api/users', userRoutes)
 //Course Routes
 app.use('/api/courses', courseRoutes)
 //Video Routes
-app.use('/api/courses/:id/videos', videoRoutes)
+app.use('/api/courses', videoRoutes)
 
 //Connect Database
 connectDB()

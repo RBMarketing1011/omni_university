@@ -4,35 +4,142 @@ const { Schema } = mongoose
 const videos = new Schema({
 	title: {
 		type: String,
-		required: true
+		required: true,
+		unique: true
 	},
 	videoLink: {
 		type: String,
 		required: true
 	},
 	questions: {
-		type: [ String ],
-		required: true
-	},
-	answers: {
-		type: [ String ],
-		required: true,
-		correct: {
-			type: Boolean,
-			default: false,
-			required: true
+		q1: {
+			text: {
+				type: String,
+				required: true
+			},
+			answers: {
+				a1: {
+					text: {
+						type: String,
+						required: true
+					},
+					correctAnswer: {
+						type: Boolean,
+						default: false,
+						required: true
+					}
+				},
+				a2: {
+					text: {
+						type: String,
+						required: true
+					},
+					correctAnswer: {
+						type: Boolean,
+						default: false,
+						required: true
+					}
+				},
+				a3: {
+					text: {
+						type: String,
+						required: true
+					},
+					correctAnswer: {
+						type: Boolean,
+						default: false,
+						required: true
+					}
+				}
+			}
+		},
+		q2: {
+			text: {
+				type: String,
+				required: true
+			},
+			answers: {
+				a1: {
+					text: {
+						type: String,
+						required: true
+					},
+					correctAnswer: {
+						type: Boolean,
+						default: false,
+						required: true
+					}
+				},
+				a2: {
+					text: {
+						type: String,
+						required: true
+					},
+					correctAnswer: {
+						type: Boolean,
+						default: false,
+						required: true
+					}
+				},
+				a3: {
+					text: {
+						type: String,
+						required: true
+					},
+					correctAnswer: {
+						type: Boolean,
+						default: false,
+						required: true
+					}
+				}
+			}
+		},
+		q3: {
+			text: {
+				type: String,
+				required: true
+			},
+			answers: {
+				a1: {
+					text: {
+						type: String,
+						required: true
+					},
+					correctAnswer: {
+						type: Boolean,
+						default: false,
+						required: true
+					}
+				},
+				a2: {
+					text: {
+						type: String,
+						required: true
+					},
+					correctAnswer: {
+						type: Boolean,
+						default: false,
+						required: true
+					}
+				},
+				a3: {
+					text: {
+						type: String,
+						required: true
+					},
+					correctAnswer: {
+						type: Boolean,
+						default: false,
+						required: true
+					}
+				}
+			}
 		}
-	},
-	completed: {
-		type: Boolean,
-		default: false,
-		required: true
 	},
 	course: {
 		type: Schema.Types.ObjectId,
-		ref: 'Courses',
-		required: true
+		ref: 'Courses'
 	}
 })
 
-module.exports = ('Videos', videos)
+module.exports = mongoose.model('Videos', videos)

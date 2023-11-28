@@ -1,7 +1,6 @@
 const asyncHandler = require('express-async-handler')
 const User = require('../db/models/users')
 const genToken = require('../utils/genToken')
-const { v4: uuid } = require('uuid')
 const bcrypt = require('bcrypt')
 
 // POST - Register User
@@ -9,29 +8,25 @@ const bcrypt = require('bcrypt')
 // /api/users/register
 module.exports.userRegister = asyncHandler(async (req, res) =>
 {
-	const _id = uuid()
 	const { firstName, lastName, email, password, role } = req.body
-	const user = await User.findOne({ email })
-	const lastLogin = new Date()
 
 	//hash password and save in variable
 	const salt = await bcrypt.genSalt(10)
 	const hashPassword = await bcrypt.hash(password, salt)
 
 	try {
-		const newUser = await User.create({ _id, name: { firstName: firstName, lastName: lastName }, email, password: hashPassword, role, lastLogin })
+		const newUser = await User.create({ name: { firstName, lastName }, email, password: hashPassword, role })
 		genToken(res, newUser._id)
 		res.send({
 			'action': 'Created User',
-			'_id': _id,
+			'_id': newUser._id,
 			'name': { firstName, lastName },
 			'email': email,
 			'password': hashPassword,
-			'role': role,
-			'lastLogin': lastLogin
+			'role': role
 		})
 	} catch (err) {
-		res.status(400).json(err.code)
+		res.send(err.message)
 	}
 })
 
@@ -41,28 +36,18 @@ module.exports.userRegister = asyncHandler(async (req, res) =>
 module.exports.userLogin = asyncHandler(async (req, res) =>
 {
 	const { email, password } = req.body
-	const lastLogin = new Date()
 	const user = await User.findOne({ email })
-
-	//update User Login then login 
-	const updateLogin = async () =>
-	{
-		await User.findByIdAndUpdate(user._id, { ...user, lastLogin })
-		res.send('Login Successful')
-	}
 
 	//See if user found
 	if (user) {
 		const hashedPassword = user.password
 		const passwordIsValid = await bcrypt.compare(password, hashedPassword)
 		//validate password
-		passwordIsValid ? updateLogin() : res.send('Invalid credentials')
+		passwordIsValid ? res.status(200).send(user) : res.send('Invalid credentials')
 	} else {
+		//Invalid Info
 		res.send('Invalid Credientials')
 	}
-
-
-
 })
 
 //POST - Logout User
@@ -70,7 +55,8 @@ module.exports.userLogin = asyncHandler(async (req, res) =>
 // /api/users/logout
 module.exports.userLogout = (req, res, next) =>
 {
-	res.send('User Logged Out')
+	res.clearCookie('jwtToken')
+	res.redirect('/')
 }
 
 //GET - Get User Data
@@ -78,7 +64,26 @@ module.exports.userLogout = (req, res, next) =>
 // /api/users/:id
 module.exports.getUser = asyncHandler(async (req, res) =>
 {
-	res.send('Get User Data')
+	try {
+		const { id } = req.params
+		const user = await User.findById(id)
+		res.send(user) //Format Properly
+	} catch (error) {
+		res.send(err.message) //Handle Errors Properly
+	}
+})
+
+//GET - Get All User Data
+//Private
+// /api/users/all
+module.exports.getAllUsers = asyncHandler(async (req, res) =>
+{
+	try {
+		const allUsers = await User.find()
+		res.send(allUsers) //Format Properly
+	} catch (error) {
+		res.send(err.message)
+	}
 })
 
 //PUT - Update User Data
@@ -86,7 +91,14 @@ module.exports.getUser = asyncHandler(async (req, res) =>
 // /api/users/:id
 module.exports.updateUser = asyncHandler(async (req, res) =>
 {
-	res.send('Updated User')
+	try {
+		const { firstName, lastName, email, password, role } = req.body
+		const { id } = req.params
+		const updateUser = await User.findByIdAndUpdate(id, { name: { firstName, lastName }, email, password, role })
+		res.status(200).send(updateUser)
+	} catch (err) {
+		res.send(err.message)
+	}
 })
 
 //Delete - Delete User Data
@@ -94,5 +106,11 @@ module.exports.updateUser = asyncHandler(async (req, res) =>
 // /api/users/:id
 module.exports.deleteUser = asyncHandler(async (req, res) =>
 {
-	res.send('Deleted User')
+	try {
+		const { id } = req.params
+		const deleteUser = await User.findByIdAndDelete(id)
+		res.send('User Deleted')
+	} catch (err) {
+		res.status().send(err.message)
+	}
 })

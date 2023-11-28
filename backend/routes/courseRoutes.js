@@ -4,9 +4,13 @@ const router = express.Router()
 const {
 	createCourse,
 	getCourse,
+	getAllCourses,
 	updateCourse,
 	deleteCourse
 } = require('../controllers/coursesController')
+
+router.route('')
+	.get(getAllCourses)
 
 router.route('/create')
 	.post(createCourse)

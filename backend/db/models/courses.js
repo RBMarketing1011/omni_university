@@ -6,19 +6,27 @@ const courses = new Schema({
 		type: String,
 		required: true
 	},
-	videos: {
-		type: Schema.Types.ObjectId,
-		ref: 'Videos'
-	},
-	completed: {
-		type: Boolean,
-		default: false,
-		required: true
-	}
+	videos: [
+		{
+			type: Schema.Types.ObjectId,
+			ref: 'Videos'
+		},
+	]
 },
 	{
 		timestamps: true
 	}
 )
 
-module.exports = ('Courses', courses)
+courses.post('findOneAndDelete', async function (doc)
+{
+	if (doc) {
+		await Videos.deleteMany({
+			_id: {
+				$in: doc.videos
+			}
+		})
+	}
+})
+
+module.exports = mongoose.model('Courses', courses)
