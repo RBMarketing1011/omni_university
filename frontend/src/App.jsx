@@ -1,6 +1,7 @@
 import './css/App.css'
 
-import { Header } from './1 - components/Header'
+import { Header } from './components/Header'
+import { Outlet } from 'react-router-dom'
 
 function App ()
 {
@@ -8,7 +9,7 @@ function App ()
   return (
     <>
       < Header />
-      <h1>React</h1>
+      < Outlet />
     </>
   )
 }

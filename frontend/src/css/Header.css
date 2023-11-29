@@ -3,6 +3,14 @@
 	height: 100px;
 }
 
-.Header .brand {
+.Header .container {
+	width: min(80vw, 95vw);
+	margin: 0 auto;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.Header .brand img {
 	height: 90px;
 }

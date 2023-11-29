@@ -1,0 +1,32 @@
+.NavLinks {
+	width: min(100%, 35vw);
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.NavLinks a {
+	color: var(--black);
+	position: relative;
+	transition: .3s ease;
+}
+
+.NavLinks a:hover,
+.NavLinks a.active {
+	color: var(--gold);
+}
+
+.NavLinks a::before {
+	content: '';
+	position: absolute;
+	width: 0%;
+	height: 3px;
+	bottom: 0;
+	left: 0;
+	background-color: var(--gold);
+	transition: .3s ease;
+}
+
+.NavLinks a:hover::before {
+	width: 100%;
+}

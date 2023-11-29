@@ -24,6 +24,18 @@ body {
 .btn-primary {
   background: var(--red);
   color: var(--white);
+  display: inline-block;
   padding: 1rem 3rem;
-  margin-top: 2rem;
+  border-radius: .6rem;
+  transition: .2s ease;
+}
+
+.btn-primary:hover {
+  background-color: #880808;
+}
+
+a {
+  color: var(--black);
+  font-weight: 600;
+  text-transform: uppercase;
 }
