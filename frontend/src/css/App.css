@@ -1,0 +1,29 @@
+body {
+  background: var(--white);
+  color: var(--black);
+  scroll-behavior: smooth;
+  scroll-margin-top: 100px;
+}
+
+.color-red {
+  color: var(--red);
+}
+
+.background-red {
+  background: var(--red);
+}
+
+.color-black {
+  color: var(--black);
+}
+
+.background-black {
+  background: var(--black);
+}
+
+.btn-primary {
+  background: var(--red);
+  color: var(--white);
+  padding: 1rem 3rem;
+  margin-top: 2rem;
+}

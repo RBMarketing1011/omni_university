@@ -3,8 +3,18 @@ const User = require('../db/models/users')
 const genToken = require('../utils/genToken')
 const bcrypt = require('bcrypt')
 
+//Middleware Management
+const {
+	isLoggedIn,
+	isEmployee,
+	isLead,
+	isManager,
+	isAdmin,
+	isOwner
+} = require('../utils/middleware')
+
 // POST - Register User
-//Public
+// Public
 // /api/users/register
 module.exports.userRegister = asyncHandler(async (req, res) =>
 {

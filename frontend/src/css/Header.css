@@ -1,0 +1,8 @@
+.Header {
+	width: 100%;
+	height: 100px;
+}
+
+.Header .brand {
+	height: 90px;
+}

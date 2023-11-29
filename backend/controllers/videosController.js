@@ -83,7 +83,7 @@ module.exports.getVideosInCourse = asyncHandler(async (req, res) =>
 		const allCourseVideos = await Videos.find({ course: id })
 		res.send(allCourseVideos)
 	} catch (err) {
-		res.status(400).send(err.stack)
+		res.status(statusCode).send(err.stack)
 	}
 })
 
