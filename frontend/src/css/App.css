@@ -81,3 +81,32 @@ a {
 	width: 100%;
 	white-space: nowrap;
 }
+
+dialog {
+    display: none;
+    opacity: 0;
+    position: absolute;
+    inset-inline-start: 0px;
+    inset-inline-end: 0px;
+    width: fit-content;
+    height: fit-content;
+    background-color: canvas;
+    margin: auto;
+    border-width: initial;
+    border-style: solid;
+    border-color: initial;
+    border-image: initial;
+    padding: 1em;
+    animation: fadeIn .3s ease linear;
+}
+
+dialog[open] {
+  display: block;
+  animation: fadeIn .3s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  100% {
+    opacity: 1
+  }
+}

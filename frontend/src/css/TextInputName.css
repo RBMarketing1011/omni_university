@@ -1,0 +1,9 @@
+.TextInputName {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.TextInputName input {
+	width: 50%;
+}

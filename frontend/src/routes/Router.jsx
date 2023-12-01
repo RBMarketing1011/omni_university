@@ -4,6 +4,7 @@ import App from '../App.jsx'
 //Route Pages
 import { HomePage } from '../pages/HomePage.jsx'
 import { LoginPage } from '../pages/LoginPage.jsx'
+import { Dashboard } from '../pages/Dashboard.jsx'
 
 import
 {
@@ -17,6 +18,7 @@ const router = createBrowserRouter(
 		<Route path='/' element={ < App /> } >
 			< Route index={ true } path='/' element={ < HomePage /> } />
 			< Route path='/login' element={ < LoginPage /> } />
+			< Route path='/dashboard' element={ < Dashboard /> } />
 		</Route>
 	)
 )

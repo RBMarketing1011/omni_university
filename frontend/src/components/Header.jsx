@@ -6,8 +6,8 @@ import { useRef, useState } from 'react'
 import { FaArrowRightToBracket, FaRegCircleUser, FaXmark, FaSquareCheck, FaRegPenToSquare } from "react-icons/fa6"
 import { useSelector, useDispatch } from 'react-redux'
 
-import { useLogoutMutation } from '../slices/usersApiSlice'
-import { removeCredentials } from '../slices/authSlice'
+import { useLogoutMutation, useUpdateUserMutation } from '../slices/usersApiSlice'
+import { removeCredentials, setCredentials } from '../slices/authSlice'
 
 import { toast } from 'react-toastify'
 
@@ -17,20 +17,10 @@ const Header = () =>
 	//Get userInfo data from redux auth slice stored in localStorage
 	const { userInfo } = useSelector((state) => state.auth)
 
-	let userFirstName = ''
-	let userLastName = ''
-	let userEmail = ''
-
-	if (userInfo) {
-		let userFirstName = userInfo.firstName
-		let userLastName = userInfo.lastName
-		let userEmail = userInfo.email
-	}
-
 	//State for UpdateUser Form
-	const [ firstName, setFirstName ] = useState(userFirstName)
-	const [ lastName, setLastName ] = useState(userLastName)
-	const [ email, setEmail ] = useState(userEmail)
+	const [ firstName, setFirstName ] = useState(userInfo ? userInfo.firstName : '')
+	const [ lastName, setLastName ] = useState(userInfo ? userInfo.lastName : '')
+	const [ email, setEmail ] = useState(userInfo ? userInfo.email : '')
 
 	//State change functions
 	const firstNameChange = (e) =>
@@ -52,19 +42,22 @@ const Header = () =>
 	const sidebarRef = useRef(null)
 	const formRef = useRef(null)
 
-	const openSidebar = () =>
-	{
-		sidebarRef.current.style.right = 0
-	}
+	const [ sidebarState, setSidebarState ] = useState(false)
 
-	const closeSidebar = (e) =>
+	const sidebarHandler = () =>
 	{
-		sidebarRef.current.style.right = '-280px'
+		if (sidebarState) {
+			sidebarRef.current.style.right = '-280px'
+			setSidebarState(!sidebarState)
+		} else {
+			sidebarRef.current.style.right = '0px'
+			setSidebarState(!sidebarState)
+		}
 	}
 
 	//Update User Info Form And State
 	const [ updateUserInfo, setUpdateUserInfo ] = useState(false)
-	const showUpdateUserForm = () =>
+	const updateUserFormHandler = () =>
 	{
 		if (!updateUserInfo) {
 			formRef.current.style.left = '5px'
@@ -75,15 +68,11 @@ const Header = () =>
 		}
 	}
 
-	const closeUpdateUserForm = () =>
-	{
-		formRef.current.style.left = '270px'
-		setUpdateUserInfo(!updateUserInfo)
-	}
-
-	//Logout func() to remove all credentials and jwt token
+	//Setting Navigate and Dispatch Func()
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
+
+	//Logout func() to remove all credentials and jwt token
 	const [ logout ] = useLogoutMutation()
 
 	const logoutUser = async () =>
@@ -97,24 +86,41 @@ const Header = () =>
 		}
 	}
 
+	//update user form submission and handling
+	const [ updateUser, { isLoading } ] = useUpdateUserMutation()
+
+	const formHandler = async (e) =>
+	{
+		e.preventDefault()
+		console.log(firstName + ' ' + lastName + ' ' + email)
+		try {
+			const res = await updateUser({ fitsName, lastName, email }).unwrap()
+			dispatch(setCredentials({ ...res }))
+		} catch (err) {
+			toast.error(err)
+		}
+	}
+
 
 	return (
 		<header className='Header background-red'>
 			<nav className="container">
 				<a href='/' className="brand"><img src="/OCE-Shade.svg" alt="" /></a>
-				< NavLinks links={ [ 'Courses', 'Dashboard', 'On Boarding' ] } />
+				{
+					userInfo && < NavLinks links={ [ 'Courses', 'Dashboard', 'On Boarding' ] } />
+				}
 				<div className="account-container">
 					{ userInfo ?
 						(
 							<>
 								<div className="account" >
 									<p onClick={ logoutUser } >Log Out</p>
-									<div className="open-sidebar-nav" onClick={ openSidebar } >
+									<div className="open-sidebar-nav" onClick={ sidebarHandler } >
 										<p>Profile</p>< FaRegCircleUser size={ 20 } />
 									</div>
 								</div>
 								<div className="account-details sidebar" ref={ sidebarRef }>
-									<div className="close">< FaXmark size={ 20 } onClick={ (e) => closeSidebar(e) } /></div>
+									<div className="close">< FaXmark size={ 20 } onClick={ sidebarHandler } /></div>
 									<h3 className="welcome">Welcome Back, { userInfo.firstName }</h3>
 									<div className="details">
 										<ul className="details-course-completion-list">
@@ -131,7 +137,7 @@ const Header = () =>
 											<p>{ userInfo.role }</p>
 										</div>
 										<div className="change-details" >
-											< Form className='form' ref={ formRef } >
+											< Form method='PUT' action={ '/api/users/' + userInfo._id } className='form' ref={ formRef } onSubmit={ (e) => formHandler(e) } >
 												<div className="form-input">
 													<label htmlFor="firstName">First Name</label>
 													<input type="text" id='firstName' name='firstName' value={ firstName } onChange={ (e) => firstNameChange(e) } />
@@ -145,11 +151,11 @@ const Header = () =>
 													<input type="email" id='email' name='email' value={ email } onChange={ (e) => emailChange(e) } />
 												</div>
 												<div className="btn-group">
-													<button className='btn-form' onClick={ closeUpdateUserForm } >Close</button>
+													<a className='btn-form' onClick={ updateUserFormHandler } >Close</a>
 													<button type='submit' className='btn-form' >Save Changes</button>
 												</div>
 											</Form>
-											<a className="detailsBtn" onClick={ showUpdateUserForm }>
+											<a className="detailsBtn" onClick={ updateUserFormHandler }>
 												<p>Change Account Details</p>
 												< FaRegPenToSquare size={ 20 } />
 											</a>

@@ -1,4 +1,5 @@
 import '../css/CustomForm.css'
+import { Spinner } from '../components/Spinner'
 
 // Import Dependencies from React
 import { useEffect, useState } from 'react'
@@ -71,6 +72,12 @@ const CustomForm = ({ heading, subheading, action, method }) =>
 				<h4>{ subheading }</h4>
 				<h1>{ heading }</h1>
 			</div>
+
+			{ isLoading &&
+				<>
+					< Spinner />
+				</>
+			}
 
 			<Form method={ method } action={ action } onSubmit={ submitForm } >
 				<div className="form-container">

@@ -27,6 +27,7 @@
 	transition: .3s ease;
 }
 
-.NavLinks a:hover::before {
+.NavLinks a:hover::before,
+.NavLinks a.active::before {
 	width: 100%;
 }
