@@ -1,11 +1,11 @@
 import '../css/PasswordInput.css'
 
-const PasswordInput = ({ handleState }) =>
+const PasswordInput = ({ handleState, passwordState }) =>
 {
 
 	return (
 		<div className='PasswordInput'>
-			<input type="password" value={ handleState.password } name='password' placeholder='Password' required onChange={ handleState } />
+			<input type="password" value={ passwordState } name='password' placeholder='Password' required onChange={ handleState } />
 		</div>
 	)
 }

@@ -1,10 +1,10 @@
 import '../css/EmailInput.css'
 
-const EmailInput = ({ handleState }) =>
+const EmailInput = ({ handleState, emailState }) =>
 {
 	return (
 		<div className='EmailInput'>
-			<input type="email" value={ handleState.email } name='email' placeholder='Email' required onChange={ handleState } />
+			<input type="email" value={ emailState } name='email' placeholder='Email' required onChange={ handleState } />
 		</div>
 	)
 }

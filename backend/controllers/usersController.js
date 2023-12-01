@@ -1,17 +1,6 @@
 const asyncHandler = require('express-async-handler')
 const User = require('../db/models/users')
 const genToken = require('../utils/genToken')
-const bcrypt = require('bcrypt')
-
-//Middleware Management
-const {
-	isLoggedIn,
-	isEmployee,
-	isLead,
-	isManager,
-	isAdmin,
-	isOwner
-} = require('../utils/middleware')
 
 // POST - Register User
 // Public
@@ -19,24 +8,28 @@ const {
 module.exports.userRegister = asyncHandler(async (req, res) =>
 {
 	const { firstName, lastName, email, password, role } = req.body
+	const userExists = await User.findOne({ email })
 
-	//hash password and save in variable
-	const salt = await bcrypt.genSalt(10)
-	const hashPassword = await bcrypt.hash(password, salt)
+	if (userExists) {
+		res.status(400)
+		throw new Error('User Already Exists')
+	}
 
-	try {
-		const newUser = await User.create({ name: { firstName, lastName }, email, password: hashPassword, role })
+	const newUser = await User.create({ name: { firstName, lastName }, email, password, role })
+
+	if (newUser) {
 		genToken(res, newUser._id)
-		res.send({
-			'action': 'Created User',
+
+		res.status(201).json({
 			'_id': newUser._id,
-			'name': { firstName, lastName },
+			'name': { newUser: { firstName, lastName } },
 			'email': email,
-			'password': hashPassword,
+			'password': password,
 			'role': role
 		})
-	} catch (err) {
-		res.send(err.message)
+	} else {
+		res.status(400)
+		throw new Error('Invalid User Data')
 	}
 })
 
@@ -46,27 +39,40 @@ module.exports.userRegister = asyncHandler(async (req, res) =>
 module.exports.userLogin = asyncHandler(async (req, res) =>
 {
 	const { email, password } = req.body
-	const user = await User.findOne({ email })
+	const lowerCaseEmail = email.toLowerCase()
+
+	const user = await User.findOne({ email: lowerCaseEmail })
 
 	//See if user found
-	if (user) {
-		const hashedPassword = user.password
-		const passwordIsValid = await bcrypt.compare(password, hashedPassword)
+	if (user && (await user.matchPassword(password))) {
+		genToken(res, user._id)
+
 		//validate password
-		passwordIsValid ? res.status(200).send(user) : res.send('Invalid credentials')
+		res.json({
+			'_id': user._id,
+			'name': user.name.firstName + ' ' + user.name.lastName,
+			'firstName': user.name.firstName,
+			'lastName': user.name.lastName,
+			'email': user.email,
+			'role': user.role
+		})
 	} else {
 		//Invalid Info
-		res.send('Invalid Credientials')
+		res.status(401)
+		throw new Error('Invalid Email or Password')
 	}
 })
 
 //POST - Logout User
 //Public
 // /api/users/logout
-module.exports.userLogout = (req, res, next) =>
+module.exports.userLogout = (req, res) =>
 {
-	res.clearCookie('jwtToken')
-	res.redirect('/')
+	res.cookie('jwt', '', {
+		httpOnly: true,
+		expires: new Date(0),
+	})
+	res.status(200).json({ message: 'Logged out successfully' })
 }
 
 //GET - Get User Data
@@ -77,9 +83,10 @@ module.exports.getUser = asyncHandler(async (req, res) =>
 	try {
 		const { id } = req.params
 		const user = await User.findById(id)
-		res.send(user) //Format Properly
+		res.json({ user }) //Format Properly
 	} catch (error) {
-		res.send(err.message) //Handle Errors Properly
+		res.status(400) //Handle Errors Properly
+		throw new Error('User Not Found')
 	}
 })
 
@@ -90,9 +97,10 @@ module.exports.getAllUsers = asyncHandler(async (req, res) =>
 {
 	try {
 		const allUsers = await User.find()
-		res.send(allUsers) //Format Properly
-	} catch (error) {
-		res.send(err.message)
+		res.json({ allUsers }) //Format Properly
+	} catch (err) {
+		res.status(400)
+		throw new Error('No Users Exist')
 	}
 })
 

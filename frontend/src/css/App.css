@@ -34,8 +34,50 @@ body {
   background-color: #880808;
 }
 
+.btn-group {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.btn-form {
+  background-color: var(--black);
+  color: var(--white);
+  width: 100%;
+  border-radius: .2rem;
+  margin: .2rem;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.btn-form::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  width: 0%;
+  background: var(--red);
+  z-index: -1;
+  transition: .2s ease;
+}
+
+.btn-form:hover::before {
+  width: 100%;
+}
+
 a {
   color: var(--black);
   font-weight: 600;
   text-transform: uppercase;
+}
+
+.sidebar-heading {
+  font-size: 1rem;
+	border-bottom: 1px solid var(--gold);
+	margin-bottom: 1rem;
+	color: var(--gold);
+	width: 100%;
+	white-space: nowrap;
 }

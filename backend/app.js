@@ -1,19 +1,20 @@
 //Dependencies
-const bodyParser = require('body-parser')
 const MongoStore = require('connect-mongo')
 const cookieParser = require('cookie-parser')
+const cors = require('cors')
 const dotenv = require('dotenv')
 const express = require('express')
 const session = require('express-session')
 const mongoose = require('mongoose')
 
-//Database Schemas
-const Users = require('./db/models/users')
-// const Courses = require('./db/models/courses')
-// const Videos = require('./db/models/videos')
+//MIDDLEWARE
+const { notFound, errorHandler } = require('./middleware/errorMiddleware')
 
 //Database Connection
 const connectDB = require('./db/connection/connection')
+
+//Connect Database
+connectDB()
 
 //Config
 dotenv.config()
@@ -29,9 +30,11 @@ const courseRoutes = require('./routes/courseRoutes')
 const videoRoutes = require('./routes/videoRoutes')
 
 //App Setup
-app.use(cookieParser())
+app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static(path.join(__dirname, 'assets')))
+app.use(cookieParser())
+app.use(cors())
 
 // SESSION CONFIG SETTINGS
 app.use(
@@ -67,21 +70,15 @@ app.use('/api/courses', courseRoutes)
 //Video Routes
 app.use('/api/courses', videoRoutes)
 
-//Connect Database
-connectDB()
-
 // MIDDLEWARE SETUP
 app.all('*', (req, res, next) =>
 {
   next(new expressErr('Page Not Found', 404))
 })
 
-app.use((err, req, res, next) =>
-{
-  const { statusCode = 500 } = err
-  if (!err.message) err.message = "Couldn't find the requested URL"
-  res.status(statusCode).send(err)
-})
+//Error Handling
+app.use(notFound)
+app.use(errorHandler)
 
 //Server Start
 app.listen(process.env.PORT, () =>

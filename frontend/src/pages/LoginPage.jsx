@@ -1,6 +1,6 @@
 import '../css/LoginPage.css'
 
-import { CustomForm } from '../components/CustomForm'
+import { CustomForm } from '../sections/CustomForm'
 
 
 
