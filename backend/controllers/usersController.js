@@ -96,8 +96,8 @@ module.exports.getUser = asyncHandler(async (req, res) =>
 module.exports.getAllUsers = asyncHandler(async (req, res) =>
 {
 	try {
-		const allUsers = await User.find()
-		res.json({ allUsers }) //Format Properly
+		const allUsers = await User.find({})
+		res.status(200).json({ allUsers }) //Format Properly
 	} catch (err) {
 		res.status(400)
 		throw new Error('No Users Exist')
@@ -113,7 +113,14 @@ module.exports.updateUser = asyncHandler(async (req, res) =>
 		const { firstName, lastName, email, password, role } = req.body
 		const { id } = req.params
 		const updateUser = await User.findByIdAndUpdate(id, { name: { firstName, lastName }, email, password, role })
-		res.status(200).send(updateUser)
+		res.status(200).json({
+			'_id': updateUser._id,
+			'name': updateUser.name.firstName + ' ' + updateUser.name.lastName,
+			'firstName': updateUser.name.firstName,
+			'lastName': updateUser.name.lastName,
+			'email': updateUser.email,
+			'role': updateUser.role
+		})
 	} catch (err) {
 		res.send(err.message)
 	}

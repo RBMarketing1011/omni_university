@@ -11,7 +11,7 @@ const {
 	deleteUser,
 } = require('../controllers/usersController')
 
-router.route('')
+router.route('/all')
 	.get(getAllUsers)
 
 router.route('/register')
