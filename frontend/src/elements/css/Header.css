@@ -1,0 +1,68 @@
+.Header {
+  width: 100%;
+  height: 100px;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  background: var(--light);
+  z-index: 100;
+}
+
+.Header nav {
+  width: min(90vw, 1400px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: .3rem;
+  box-shadow: 0 0 5px var(--main-red);
+  padding: .5rem;
+}
+
+.Header .brand {
+  width: 200px;
+  position: relative;
+}
+
+.Header .brand::before {
+  content: '';
+  position: absolute;
+  background: var(--light);
+  height: 10px;
+  width: 43%;
+  top: -25px;
+  left: 18px;
+  border-radius: 50vw;
+  z-index: 0;
+}
+
+.Header .brand::after {
+  content: '';
+  position: absolute;
+  background: var(--light);
+  height: 10px;
+  width: 70%;
+  bottom: -25px;
+  left: -5px;
+  border-radius: 50vw;
+  z-index: 0;
+}
+
+.Header .brand img {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100px;
+  z-index: 1;
+}
+
+.Header .profile {
+  width: 200px;
+}
+
+.Header .profile p {
+  margin-right: 1rem;
+}

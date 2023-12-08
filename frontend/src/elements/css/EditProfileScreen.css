@@ -1,0 +1,102 @@
+.EditProfileScreen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.EditProfileScreen .card {
+  background: var(--light);
+}
+
+.EditProfileScreen .card .profile-pic {
+  height: 100px;
+  width: 100px;
+  background: var(--accent);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: .3rem;
+  box-shadow: 0 0 8px var(--dark);
+  margin-right: 2rem;
+}
+
+.EditProfileScreen .card-header .profile-pic p {
+  color: var(--light);
+  font-size: 2.5rem;
+  font-weight: 500;
+  text-shadow: 0 0 15px var(--dark);
+}
+
+.EditProfileScreen .card-header .user-name {
+  width: calc(100% - 132px);
+}
+
+.EditProfileScreen .card-header .user-name h4 {
+  font-size: 2.5rem;
+  font-weight: 900;
+  font-style: italic;
+  border-bottom: 2px solid var(--dark);
+  padding-bottom: 5px;
+}
+
+.EditProfileScreen .card-header .user-name h4 span {
+  font-weight: 400;
+  color: var(--dark);
+}
+
+.EditProfileScreen .card-body {
+  height: calc(100% - 25%);
+  background: var(--light-accent);
+  border-radius: .6rem;
+  padding: 2rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.EditProfileScreen .card-body * {
+  width: 100%;
+}
+
+.EditProfileScreen .card-body .user-name,
+.EditProfileScreen .card-body .user-email,
+.EditProfileScreen .card-body .user-role,
+.EditProfileScreen .card-body .user-courses {
+  margin-top: 2rem;
+}
+
+.EditProfileScreen .card-body .user-name .content {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.EditProfileScreen .card-body .title {
+  text-transform: uppercase;
+  font-weight: 700;
+  border-bottom: 1px solid var(--dark);
+  padding-bottom: .5rem;
+  margin-bottom: .5rem;
+}
+
+.EditProfileScreen .card-body .content {
+  text-transform: capitalize;
+  color: var(--heading-color);
+  font-weight: 500;
+}
+
+.EditProfileScreen .card-footer .footer-group {
+  width: 50%;
+}
+
+.EditProfileScreen .card-footer .footer-group .footer-title {
+  color: var(--accent);
+  text-transform: uppercase;
+  padding-bottom: 5px;
+  border-bottom: 2px solid var(--dark);
+  width: 80%;
+}
+
+.EditProfileScreen .card-footer .footer-group .footer-desc {
+  font-size: 1rem;
+  font-weight: 900;
+  margin-top: .5rem;
+}
