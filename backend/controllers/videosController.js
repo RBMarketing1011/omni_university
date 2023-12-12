@@ -7,8 +7,10 @@ const Course = require('../db/models/courses')
 // /api/courses/:id/videos/create
 module.exports.createVideo = asyncHandler(async (req, res) =>
 {
-	try {
+	try
+	{
 		const { id } = req.params
+		console.log(id)
 		const course = await Course.findById(id)
 
 		const {
@@ -53,9 +55,11 @@ module.exports.createVideo = asyncHandler(async (req, res) =>
 		course.videos.push(newVideo)
 		await course.save()
 		await newVideo.save()
-		res.status(200).send('Course: ' + course + ' Video: ' + newVideo)
-	} catch (err) {
-		res.send(err.stack)
+		res.status(200).json({ message: 'New Video Created' })
+	} catch (err)
+	{
+		res.status(401).json(err.stack)
+		console.log(err)
 	}
 })
 
@@ -64,11 +68,13 @@ module.exports.createVideo = asyncHandler(async (req, res) =>
 // /api/courses/:id/videos/:videoId
 module.exports.getVideo = asyncHandler(async (req, res) =>
 {
-	try {
+	try
+	{
 		const { videoId } = req.params
 		const video = await Videos.findById(videoId)
 		res.send(video)
-	} catch (err) {
+	} catch (err)
+	{
 		res.status(400).send(err.stack)
 	}
 })
@@ -78,11 +84,13 @@ module.exports.getVideo = asyncHandler(async (req, res) =>
 // /api/courses/:id/videos
 module.exports.getVideosInCourse = asyncHandler(async (req, res) =>
 {
-	try {
+	try
+	{
 		const { id } = req.params
 		const allCourseVideos = await Videos.find({ course: id })
 		res.send(allCourseVideos)
-	} catch (err) {
+	} catch (err)
+	{
 		res.status(statusCode).send(err.stack)
 	}
 })
@@ -92,7 +100,8 @@ module.exports.getVideosInCourse = asyncHandler(async (req, res) =>
 // /api/courses/:id/videos/:videoId
 module.exports.updateVideo = asyncHandler(async (req, res) =>
 {
-	try {
+	try
+	{
 		const { videoId } = req.params
 
 		const {
@@ -134,8 +143,9 @@ module.exports.updateVideo = asyncHandler(async (req, res) =>
 			}
 		})
 
-		res.status(200).send(updateVideo)
-	} catch (err) {
+		res.status(200).json({ message: 'Updated Video Successfully' })
+	} catch (err)
+	{
 		res.status(400).send(err.stack)
 	}
 })
@@ -145,12 +155,14 @@ module.exports.updateVideo = asyncHandler(async (req, res) =>
 // /api/courses/:id/videos/:videoId
 module.exports.deleteVideo = asyncHandler(async (req, res) =>
 {
-	try {
+	try
+	{
 		const { id, videoId } = req.params
 		await Course.findByIdAndUpdate(id, { $pull: { videos: videoId } })
 		const deleteVideo = await Videos.findByIdAndDelete(videoId)
-		res.status(200).send('Deleted Video...' + deleteVideo.title)
-	} catch (err) {
+		res.status(200).json({ message: 'Deleted Video' })
+	} catch (err)
+	{
 		res.status(400).send(err.stack)
 	}
 })

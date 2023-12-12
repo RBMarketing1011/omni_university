@@ -10,24 +10,21 @@ module.exports.userRegister = asyncHandler(async (req, res) =>
 	const { firstName, lastName, email, password, role } = req.body
 	const userExists = await User.findOne({ email })
 
-	if (userExists) {
+	if (userExists)
+	{
 		res.status(400)
 		throw new Error('User Already Exists')
 	}
 
 	const newUser = await User.create({ name: { firstName, lastName }, email, password, role })
 
-	if (newUser) {
+	if (newUser)
+	{
 		genToken(res, newUser._id)
 
-		res.status(201).json({
-			'_id': newUser._id,
-			'name': { newUser: { firstName, lastName } },
-			'email': email,
-			'password': password,
-			'role': role
-		})
-	} else {
+		res.status(201).json(user)
+	} else
+	{
 		res.status(400)
 		throw new Error('Invalid User Data')
 	}
@@ -39,24 +36,18 @@ module.exports.userRegister = asyncHandler(async (req, res) =>
 module.exports.userLogin = asyncHandler(async (req, res) =>
 {
 	const { email, password } = req.body
+	console.log(email + '   ' + password)
 	const lowerCaseEmail = email.toLowerCase()
 
 	const user = await User.findOne({ email: lowerCaseEmail })
 
-	//See if user found
-	if (user && (await user.matchPassword(password))) {
-		genToken(res, user._id)
-
-		//validate password
-		res.json({
-			'_id': user._id,
-			'name': user.name.firstName + ' ' + user.name.lastName,
-			'firstName': user.name.firstName,
-			'lastName': user.name.lastName,
-			'email': user.email,
-			'role': user.role
-		})
-	} else {
+	//See if user found with valid password
+	if (user && (await user.matchPassword(password)))
+	{
+		const token = genToken(res, user._id)
+		res.status(200).json(user)
+	} else
+	{
 		//Invalid Info
 		res.status(401)
 		throw new Error('Invalid Email or Password')
@@ -80,11 +71,13 @@ module.exports.userLogout = (req, res) =>
 // /api/users/:id
 module.exports.getUser = asyncHandler(async (req, res) =>
 {
-	try {
+	try
+	{
 		const { id } = req.params
 		const user = await User.findById(id)
-		res.json({ user }) //Format Properly
-	} catch (error) {
+		res.status(200).json(user) //Format Properly
+	} catch (error)
+	{
 		res.status(400) //Handle Errors Properly
 		throw new Error('User Not Found')
 	}
@@ -95,10 +88,12 @@ module.exports.getUser = asyncHandler(async (req, res) =>
 // /api/users/all
 module.exports.getAllUsers = asyncHandler(async (req, res) =>
 {
-	try {
+	try
+	{
 		const allUsers = await User.find({})
 		res.status(200).json({ allUsers }) //Format Properly
-	} catch (err) {
+	} catch (err)
+	{
 		res.status(400)
 		throw new Error('No Users Exist')
 	}
@@ -109,19 +104,15 @@ module.exports.getAllUsers = asyncHandler(async (req, res) =>
 // /api/users/:id
 module.exports.updateUser = asyncHandler(async (req, res) =>
 {
-	try {
+	try
+	{
 		const { firstName, lastName, email, password, role } = req.body
 		const { id } = req.params
-		const updateUser = await User.findByIdAndUpdate(id, { name: { firstName, lastName }, email, password, role })
-		res.status(200).json({
-			'_id': updateUser._id,
-			'name': updateUser.name.firstName + ' ' + updateUser.name.lastName,
-			'firstName': updateUser.name.firstName,
-			'lastName': updateUser.name.lastName,
-			'email': updateUser.email,
-			'role': updateUser.role
-		})
-	} catch (err) {
+		await User.findByIdAndUpdate(id, { name: { firstName, lastName }, email, password, role })
+		const updateUser = await User.findById(id)
+		res.status(200).json(updateUser)
+	} catch (err)
+	{
 		res.send(err.message)
 	}
 })
@@ -131,11 +122,13 @@ module.exports.updateUser = asyncHandler(async (req, res) =>
 // /api/users/:id
 module.exports.deleteUser = asyncHandler(async (req, res) =>
 {
-	try {
+	try
+	{
 		const { id } = req.params
 		const deleteUser = await User.findByIdAndDelete(id)
 		res.send('User Deleted')
-	} catch (err) {
+	} catch (err)
+	{
 		res.status().send(err.message)
 	}
 })

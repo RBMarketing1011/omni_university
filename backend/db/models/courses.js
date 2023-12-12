@@ -1,10 +1,12 @@
 const mongoose = require('mongoose')
 const { Schema } = mongoose
+const Videos = require('./videos')
 
 const courses = new Schema({
 	title: {
 		type: String,
-		required: true
+		required: true,
+		unique: true
 	},
 	videos: [
 		{
@@ -20,7 +22,8 @@ const courses = new Schema({
 
 courses.post('findOneAndDelete', async function (doc)
 {
-	if (doc) {
+	if (doc)
+	{
 		await Videos.deleteMany({
 			_id: {
 				$in: doc.videos

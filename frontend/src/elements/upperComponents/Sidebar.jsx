@@ -141,7 +141,7 @@ const Sidebar = () =>
               </NavLink>
               <div className='text'>
                 <p className="info-label">Name</p>
-                <p className="section-info">{ userInfo.name }</p>
+                <p className="section-info">{ userInfo.name.firstName } { userInfo.name.lastName }</p>
                 <p className="info-label">Email</p>
                 <p className="section-info">{ userInfo.email }</p>
                 <p className="info-label">Role</p>

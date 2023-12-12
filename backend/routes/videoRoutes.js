@@ -17,7 +17,7 @@ router.route('/:id/videos')
 
 router.route('/:id/videos/:videoId')
 	.get(getVideo)
-	.put(updateVideo)
+	.patch(updateVideo)
 	.delete(deleteVideo)
 
 module.exports = router

@@ -1,0 +1,225 @@
+.AdminCoursesScreen {
+  height: 100%;
+  width: 100%;
+}
+
+.AdminCoursesScreen .courses-content {
+  height: 80lvh;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.AdminCoursesScreen .courses-content .courses-title {
+  border-bottom: 4px solid var(--main-red);
+  margin-bottom: 25px;
+}
+
+.AdminCoursesScreen .courses-content .courses-accordian {
+  height: 100%;
+  width: 100%;
+  border-radius: .6rem;
+  padding: 2rem;
+  background: var(--light-accent);
+  overflow-y: auto;
+}
+
+.AdminCoursesScreen .courses-accordian .accordian-item {
+  padding: .5rem;
+}
+
+.AdminCoursesScreen .courses-accordian .accordian-title {
+  border-bottom: 2px solid var(--accent);
+  padding: .5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: .3s ease;
+}
+
+.AdminCoursesScreen .courses-accordian .accordian-title h1 {
+  color: var(--accent)
+}
+
+.AdminCoursesScreen .courses-accordian .accordian-icons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 12%;
+}
+
+.AdminCoursesScreen .courses-accordian svg {
+  cursor: pointer;
+}
+
+.AdminCoursesScreen .courses-accordian .accordian-content {
+  padding: .5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.AdminCoursesScreen .courses-accordian .accordian-content .content {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+
+.AdminCoursesScreen .card {
+  background: var(--light);
+  width: 50%;
+}
+
+.AdminCoursesScreen .card .profile-pic {
+  height: 100px;
+  width: 100px;
+  background: var(--accent);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: .3rem;
+  box-shadow: 0 0 8px var(--dark);
+  margin-right: 2rem;
+}
+
+.AdminCoursesScreen .card-header .profile-pic p {
+  color: var(--light);
+  font-size: 2.5rem;
+  font-weight: 500;
+  text-shadow: 0 0 15px var(--dark);
+}
+
+.AdminCoursesScreen .card-header .user-name {
+  width: calc(100% - 132px);
+}
+
+.AdminCoursesScreen .card-header .user-name h4 {
+  font-size: 2.5rem;
+  font-weight: 900;
+  font-style: italic;
+  border-bottom: 2px solid var(--dark);
+  padding-bottom: 5px;
+}
+
+.AdminCoursesScreen .card-header .user-name h4 span {
+  font-weight: 400;
+  color: var(--dark);
+}
+
+.AdminCoursesScreen .card-form {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.AdminCoursesScreen input {
+  font-size: 2rem;
+  height: 50px;
+  width: 98%;
+  padding-inline: 1rem;
+  background: var(--accent);
+  color: var(--light);
+  border-radius: .3rem;
+}
+
+.AdminCoursesScreen input:focus-visible {
+  outline: none;
+}
+
+.AdminCoursesScreen input::placeholder {
+  color: var(--light);
+}
+
+.AdminCoursesScreen .card-body {
+  height: calc(100% - 25%);
+  background: var(--light-accent);
+  border-radius: .6rem;
+  padding: 2rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.AdminCoursesScreen .card-body * {
+  width: 100%;
+}
+
+.AdminCoursesScreen .card-body .user-name,
+.AdminCoursesScreen .card-body .user-email,
+.AdminCoursesScreen .card-body .user-role,
+.AdminCoursesScreen .card-body .user-courses,
+.AdminCoursesScreen .card-body .card-container .form-group {
+  margin-top: 2rem;
+}
+
+.AdminCoursesScreen .card-body .user-name .content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.AdminCoursesScreen .card-body .title {
+  text-transform: uppercase;
+  font-weight: 700;
+  border-bottom: 1px solid var(--dark);
+  padding-bottom: .5rem;
+  margin-bottom: .5rem;
+}
+
+.AdminCoursesScreen .card-body .content {
+  text-transform: capitalize;
+  color: var(--heading-color);
+  font-weight: 500;
+}
+
+.AdminCoursesScreen .card-body .content input {
+  margin-block: .2rem;
+}
+
+.AdminCoursesScreen .accordian-content .add-video {
+  background: var(--light);
+  padding: .2rem .5rem;
+  border-radius: .4rem;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: .2s ease;
+}
+
+.AdminCoursesScreen .accordian-content .add-video:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 5px var(--dark);
+  background: var(--accent);
+}
+
+.AdminCoursesScreen .accordian-content .add-video:hover > * {
+  color: var(--light);
+}
+
+.AdminCoursesScreen .accordian-content .add-video > * {
+  color: var(--accent);
+  transition: .2s ease;
+}
+
+.AdminCoursesScreen .card-footer .footer-group {
+  width: 50%;
+}
+
+.AdminCoursesScreen .card-footer .footer-group .footer-title {
+  color: var(--accent);
+  text-transform: uppercase;
+  padding-bottom: 5px;
+  border-bottom: 2px solid var(--dark);
+  width: 80%;
+}
+
+.AdminCoursesScreen .card-footer .footer-group .footer-desc {
+  font-size: 1rem;
+  font-weight: 900;
+  margin-top: .5rem;
+}

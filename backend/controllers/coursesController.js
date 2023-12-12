@@ -9,15 +9,13 @@ module.exports.createCourse = asyncHandler(async (req, res) =>
 	const { title } = req.body
 	const videos = []
 
-	try {
+	try
+	{
 		const newCourse = await Course.create({ title, videos })
-		res.send({
-			'action': 'Created Course',
-			'_id': newCourse._id,
-			'title': newCourse.title
-		})
-	} catch (err) {
-		res.send(err.message)
+		res.status(200).json({ message: 'Created New Course' })
+	} catch (err)
+	{
+		res.status(401).send(err.message)
 	}
 })
 
@@ -26,11 +24,13 @@ module.exports.createCourse = asyncHandler(async (req, res) =>
 // /api/courses/:id
 module.exports.getCourse = asyncHandler(async (req, res) =>
 {
-	try {
+	try
+	{
 		const { id } = req.params
 		const course = await Course.findById(id)
 		res.send(course)
-	} catch (err) {
+	} catch (err)
+	{
 		res.send(err.message)
 	}
 })
@@ -40,25 +40,29 @@ module.exports.getCourse = asyncHandler(async (req, res) =>
 // /api/courses
 module.exports.getAllCourses = asyncHandler(async (req, res) =>
 {
-	try {
-		const allCourses = await Course.find({})
-		res.send(allCourses)
-	} catch (err) {
+	try
+	{
+		const allCourses = await Course.find({}).populate('videos')
+		res.status(200).json(allCourses)
+	} catch (err)
+	{
 		res.send(err.message)
 	}
 })
 
-//PUT - Update Course Data
+//PATCH - Update Course Data
 //Private - Admins
 // /api/courses/:id
 module.exports.updateCourse = asyncHandler(async (req, res) =>
 {
-	try {
+	try
+	{
 		const { title } = req.body
 		const { id } = req.params
 		const updateCourse = await Course.findByIdAndUpdate(id, { title })
-		res.send(updateCourse)
-	} catch (err) {
+		res.status(200).json({ message: 'Course Updated Successfully' })
+	} catch (err)
+	{
 		res.send(err.message)
 	}
 })
@@ -68,11 +72,13 @@ module.exports.updateCourse = asyncHandler(async (req, res) =>
 // /api/courses/:id
 module.exports.deleteCourse = asyncHandler(async (req, res) =>
 {
-	try {
+	try
+	{
 		const { id } = req.params
 		const deleteCourse = await Course.findByIdAndDelete(id)
 		res.send(deleteCourse)
-	} catch (err) {
+	} catch (err)
+	{
 		res.send(err.message)
 	}
 })
