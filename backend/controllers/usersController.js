@@ -36,7 +36,6 @@ module.exports.userRegister = asyncHandler(async (req, res) =>
 module.exports.userLogin = asyncHandler(async (req, res) =>
 {
 	const { email, password } = req.body
-	console.log(email + '   ' + password)
 	const lowerCaseEmail = email.toLowerCase()
 
 	const user = await User.findOne({ email: lowerCaseEmail })
@@ -108,12 +107,41 @@ module.exports.updateUser = asyncHandler(async (req, res) =>
 	{
 		const { firstName, lastName, email, password, role } = req.body
 		const { id } = req.params
-		await User.findByIdAndUpdate(id, { name: { firstName, lastName }, email, password, role })
-		const updateUser = await User.findById(id)
-		res.status(200).json(updateUser)
+		const user = await User.findByIdAndUpdate(id,
+			{
+				name:
+					{ firstName, lastName },
+				email,
+				password,
+				role
+			})
+
+		res.status(200).json(user)
+
 	} catch (err)
 	{
 		res.send(err.message)
+	}
+})
+
+//PATCH - Update Video Courses For User Data
+//Private
+// /api/users/:id/updateVideos
+module.exports.updateUserVideos = asyncHandler(async (req, res) =>
+{
+	try
+	{
+		const { videoId } = req.body
+		const { id } = req.params
+		const user = await User.findById(id)
+		user.omniUProgress.videosComplete.push(videoId)
+		await user.save()
+
+		res.status(200).json(user)
+
+	} catch (err)
+	{
+		res.json(err.message)
 	}
 })
 
@@ -126,9 +154,9 @@ module.exports.deleteUser = asyncHandler(async (req, res) =>
 	{
 		const { id } = req.params
 		const deleteUser = await User.findByIdAndDelete(id)
-		res.send('User Deleted')
+		res.status(200).json({ message: 'User Deleted' })
 	} catch (err)
 	{
-		res.status().send(err.message)
+		res.status(401).json(err.message)
 	}
 })

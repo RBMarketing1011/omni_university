@@ -1,0 +1,48 @@
+.Accordian {
+  margin-block: .5rem;
+  width: 100%;
+}
+
+.Accordian .group-title {
+  background: var(--accent);
+  padding: .5rem;
+  border-radius: .3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: .2s ease;
+}
+
+.Accordian .group-title:hover,
+.Accordian .group-title:focus {
+  box-shadow: 0 0 8px var(--dark);
+}
+
+.Accordian .group-title * {
+  color: var(--light);
+}
+
+.Accordian .group-content {
+  height: 0;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: .2s ease;
+}
+
+.Accordian .group-content.active {
+  height: 100%;
+  transform: scaleY(1);
+}
+
+.Accordian .group-content .vid {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-block: .1rem;
+  cursor: pointer;
+}
+
+.Accordian .group-content .vid:first-child {
+  margin-top: .5rem;
+}

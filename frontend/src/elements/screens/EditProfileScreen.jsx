@@ -65,7 +65,6 @@ const EditProfileScreen = () =>
     } catch (err)
     {
       toast.error(err?.data?.message || err.error)
-      console.log(err)
     }
   }
 
@@ -114,28 +113,6 @@ const EditProfileScreen = () =>
                       :
                       <h1>{ userInfo.email }</h1>
                   }
-                </div>
-              </div>
-              <div className="user-role">
-                <div className="title">Role</div>
-                <div className="content">
-                  <h1>{ userInfo.role }</h1>
-                </div>
-              </div>
-              <div className="user-courses">
-                <div className="title">Courses Completed</div>
-                <div className="content">
-                  <ul>{
-                    userInfo.omniUProgress.coursesComplete.length ?
-                      userInfo.omniUProgress.coursesComplete.map((item, i) =>
-                      {
-                        return (
-                          <li key={ i }><h1>{ item }</h1></li>
-                        )
-                      })
-                      :
-                      'No Courses Completed'
-                  }</ul>
                 </div>
               </div>
             </div>

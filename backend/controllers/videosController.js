@@ -10,15 +10,14 @@ module.exports.createVideo = asyncHandler(async (req, res) =>
 	try
 	{
 		const { id } = req.params
-		console.log(id)
 		const course = await Course.findById(id)
 
 		const {
 			title,
 			videoLink,
-			q1, q1a1, q1a2, q1a3,
-			q2, q2a1, q2a2, q2a3,
-			q3, q3a1, q3a2, q3a3,
+			q1, q1a1, q1a2, q1a3, q1CorrectAnswer,
+			q2, q2a1, q2a2, q2a3, q2CorrectAnswer,
+			q3, q3a1, q3a2, q3a3, q3CorrectAnswer,
 		} = req.body
 
 		const newVideo = await Videos.create({
@@ -31,6 +30,7 @@ module.exports.createVideo = asyncHandler(async (req, res) =>
 						a1: { text: q1a1 },
 						a2: { text: q1a2 },
 						a3: { text: q1a3 },
+						correctAnswer: q1CorrectAnswer
 					}
 				},
 				q2: {
@@ -39,6 +39,7 @@ module.exports.createVideo = asyncHandler(async (req, res) =>
 						a1: { text: q2a1 },
 						a2: { text: q2a2 },
 						a3: { text: q2a3 },
+						correctAnswer: q2CorrectAnswer
 					}
 				},
 				q3: {
@@ -47,6 +48,7 @@ module.exports.createVideo = asyncHandler(async (req, res) =>
 						a1: { text: q3a1 },
 						a2: { text: q3a2 },
 						a3: { text: q3a3 },
+						correctAnswer: q3CorrectAnswer
 					}
 				}
 			},
@@ -59,7 +61,6 @@ module.exports.createVideo = asyncHandler(async (req, res) =>
 	} catch (err)
 	{
 		res.status(401).json(err.stack)
-		console.log(err)
 	}
 })
 
@@ -107,9 +108,9 @@ module.exports.updateVideo = asyncHandler(async (req, res) =>
 		const {
 			title,
 			videoLink,
-			q1, q1a1, q1a2, q1a3,
-			q2, q2a1, q2a2, q2a3,
-			q3, q3a1, q3a2, q3a3,
+			q1, q1a1, q1a2, q1a3, q1CorrectAnswer,
+			q2, q2a1, q2a2, q2a3, q2CorrectAnswer,
+			q3, q3a1, q3a2, q3a3, q3CorrectAnswer
 		} = req.body
 
 		const updateVideo = await Videos.findByIdAndUpdate(videoId, {
@@ -122,6 +123,7 @@ module.exports.updateVideo = asyncHandler(async (req, res) =>
 						a1: { text: q1a1 },
 						a2: { text: q1a2 },
 						a3: { text: q1a3 },
+						correctAnswer: q1CorrectAnswer
 					}
 				},
 				q2: {
@@ -130,6 +132,7 @@ module.exports.updateVideo = asyncHandler(async (req, res) =>
 						a1: { text: q2a1 },
 						a2: { text: q2a2 },
 						a3: { text: q2a3 },
+						correctAnswer: q2CorrectAnswer
 					}
 				},
 				q3: {
@@ -138,6 +141,7 @@ module.exports.updateVideo = asyncHandler(async (req, res) =>
 						a1: { text: q3a1 },
 						a2: { text: q3a2 },
 						a3: { text: q3a3 },
+						correctAnswer: q3CorrectAnswer
 					}
 				}
 			}

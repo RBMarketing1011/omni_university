@@ -123,9 +123,14 @@
   font-weight: 900;
 }
 
+.display-container {
+  height: 80vh;
+  width: 45%;
+}
+
 .card {
-  height: 80lvh;
-  width: min(90vw, 700px);
+  height: 80vh;
+  width: 45%;
   box-shadow: 0 0 10px var(--heading-color);
   border-radius: .6rem;
   display: flex;
@@ -143,16 +148,119 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.card .profile-pic {
+  height: 100px;
+  width: 100px;
+  background: var(--accent);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: .3rem;
+  box-shadow: 0 0 8px var(--dark);
+  margin-right: 2rem;
+}
+
+.card-header .profile-pic p {
+  color: var(--light);
+  font-size: 2.5rem;
+  font-weight: 500;
+  text-shadow: 0 0 15px var(--dark);
+}
+
+.card-header .header-title {
+  width: calc(100% - 132px);
+}
+
+.card-header .header-title h4 {
+  font-size: 2.5rem;
+  font-weight: 900;
+  font-style: italic;
+  border-bottom: 2px solid var(--dark);
+  padding-bottom: 5px;
+  width: 100%;
+}
+
+.card-header .header-title h4 span {
+  font-weight: 400;
+  color: var(--dark);
 }
 
 .card .card-body {
+  height: calc(100% - 25%);
+  background: var(--light-accent);
+  border-radius: .6rem;
+  padding: 2rem;
+  overflow-y: auto;
+  overflow-x: hidden;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   flex-direction: column;
 }
 
+.card-body * {
+  width: 100%;
+}
+
+.card-body .card-container {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.card-body .card-container .form-group {
+  margin-block: 1rem;
+}
+
+.card-body .card-form {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.card-body .card-form input,
+.card-body .card-form select {
+  font-size: 2rem;
+  height: 50px;
+  width: 98%;
+  padding-inline: 1rem;
+  margin-block: .2rem;
+  background: var(--accent);
+  color: var(--light);
+  border-radius: .3rem;
+}
+
+.card-body .card-form input:focus-visible,
+.card-body .card-form select:focus-visible {
+  outline: none;
+}
+
+.card-body .card-form input::placeholder {
+  color: var(--light);
+}
+
+.card-body .form-group .title {
+  text-transform: uppercase;
+  font-weight: 700;
+  border-bottom: 1px solid var(--dark);
+  padding-bottom: .5rem;
+  margin-bottom: .5rem;
+}
+
+.card-body .form-group .content p {
+  font-size: 1.5rem;
+  text-transform: capitalize;
+  color: var(--dark);
+  font-weight: 500;
+}
+
 .card .card-footer {
+  padding-top: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -161,6 +269,24 @@
 .card .card-header,
 .card .card-footer {
   height: 100px;
+}
+
+.card-footer .footer-group {
+  width: 100%;
+}
+
+.card-footer .footer-group .footer-title {
+  color: var(--accent);
+  text-transform: uppercase;
+  padding-bottom: 5px;
+  border-bottom: 2px solid var(--dark);
+  width: 80%;
+}
+
+.card-footer .footer-group .footer-desc {
+  font-size: 1rem;
+  font-weight: 900;
+  margin-top: .5rem;
 }
 
 .btn-primary {

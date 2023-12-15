@@ -1,0 +1,126 @@
+.CoursesScreen {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.CoursesScreen .courses {
+  height: calc(100vh - 200px);
+  width: 20%;
+  padding: 1rem;
+  border-radius: .6rem;
+  margin-right: 1rem;
+  background: var(--light-accent);
+  color: var(--dark);
+  overflow-y: auto;
+}
+
+.CoursesScreen .group-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.CoursesScreen .group-container .container-title {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: .5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--dark);
+}
+
+.CoursesScreen .group-container .container-title p {
+  height: 50px;
+  width: 50px;
+  background: var(--accent);
+  color: var(--light);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: .4rem;
+  font-size: 1.5rem;
+  margin-right: 1rem;
+}
+
+.CoursesScreen .group-container .container-title h1 {
+  font-style: italic;
+  text-transform: uppercase;
+}
+
+.CoursesScreen .group-container .vid-title h1 {
+  font-style: italic;
+  text-transform: uppercase;
+  color: var(--light-accent);
+}
+
+.CoursesScreen .group-container .vid-title span {
+  color: var(--dark);
+  font-weight: 900;
+}
+
+
+
+
+
+
+.CoursesScreen .videos {
+  height: calc(100vh - 200px);
+  width: 80%;
+  padding: 1rem;
+  border-radius: .6rem;
+  background: var(--accent);
+  color: var(--light);
+  overflow-y: auto;
+  /* display: flex;  */
+}
+
+.CoursesScreen .videos .container-video {
+  width: 90%;
+  margin-block: 2rem;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.CoursesScreen .videos .container-video iframe {
+  width: 100%;
+  aspect-ratio: 16/9;
+}
+
+.CoursesScreen .videos .card-body {
+  width: 80%;
+  background: var(--light-accent);
+  color: var(--dark);
+  padding: 2rem;
+  border-radius: .6rem;
+  display: flex;
+  align-items: center;
+}
+
+.CoursesScreen .videos .card-body .card-form {
+  align-items: center;
+}
+
+.CoursesScreen .videos .card-body .card-container {
+  width: 75%;
+}
+
+.CoursesScreen .videos .card-body .form-group .title h4 {
+  font-size: 1.5rem;
+  color: var(--dark);
+  font-style: italic;
+}
+
+.CoursesScreen .videos .card-body .form-group .title span {
+  color: var(--main-red);
+  font-weight: 900;
+  font-style: normal;
+}
+
+.CoursesScreen .videos .card-body .btn-group {
+  width: 25%;
+}

@@ -27,12 +27,18 @@ const users = new Schema({
     required: true,
   },
   omniUProgress: {
-    coursesComplete: {
-      type: [ String ],
-    },
-    videosComplete: {
-      type: [ String ],
-    }
+    coursesComplete: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Courses'
+      }
+    ],
+    videosComplete: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Videos'
+      }
+    ]
   },
   completedOU: {
     type: Boolean,
@@ -53,11 +59,13 @@ users.methods.matchPassword = async function (enteredPassword)
 // Encrypt password using bcrypt
 users.pre("save", async function (next)
 {
-  if (this.email) {
+  if (this.email)
+  {
     this.email = this.email.toLowerCase()
   }
 
-  if (!this.isModified('password')) {
+  if (!this.isModified('password'))
+  {
     next()
   }
 

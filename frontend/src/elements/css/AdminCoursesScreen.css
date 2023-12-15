@@ -13,7 +13,6 @@
 
 .AdminCoursesScreen .courses-content .courses-title {
   border-bottom: 4px solid var(--main-red);
-  margin-bottom: 25px;
 }
 
 .AdminCoursesScreen .courses-content .courses-accordian {
@@ -68,120 +67,6 @@
   align-items: center;
 }
 
-
-
-.AdminCoursesScreen .card {
-  background: var(--light);
-  width: 50%;
-}
-
-.AdminCoursesScreen .card .profile-pic {
-  height: 100px;
-  width: 100px;
-  background: var(--accent);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: .3rem;
-  box-shadow: 0 0 8px var(--dark);
-  margin-right: 2rem;
-}
-
-.AdminCoursesScreen .card-header .profile-pic p {
-  color: var(--light);
-  font-size: 2.5rem;
-  font-weight: 500;
-  text-shadow: 0 0 15px var(--dark);
-}
-
-.AdminCoursesScreen .card-header .user-name {
-  width: calc(100% - 132px);
-}
-
-.AdminCoursesScreen .card-header .user-name h4 {
-  font-size: 2.5rem;
-  font-weight: 900;
-  font-style: italic;
-  border-bottom: 2px solid var(--dark);
-  padding-bottom: 5px;
-}
-
-.AdminCoursesScreen .card-header .user-name h4 span {
-  font-weight: 400;
-  color: var(--dark);
-}
-
-.AdminCoursesScreen .card-form {
-  height: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  flex-direction: column;
-}
-
-.AdminCoursesScreen input {
-  font-size: 2rem;
-  height: 50px;
-  width: 98%;
-  padding-inline: 1rem;
-  background: var(--accent);
-  color: var(--light);
-  border-radius: .3rem;
-}
-
-.AdminCoursesScreen input:focus-visible {
-  outline: none;
-}
-
-.AdminCoursesScreen input::placeholder {
-  color: var(--light);
-}
-
-.AdminCoursesScreen .card-body {
-  height: calc(100% - 25%);
-  background: var(--light-accent);
-  border-radius: .6rem;
-  padding: 2rem;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
-.AdminCoursesScreen .card-body * {
-  width: 100%;
-}
-
-.AdminCoursesScreen .card-body .user-name,
-.AdminCoursesScreen .card-body .user-email,
-.AdminCoursesScreen .card-body .user-role,
-.AdminCoursesScreen .card-body .user-courses,
-.AdminCoursesScreen .card-body .card-container .form-group {
-  margin-top: 2rem;
-}
-
-.AdminCoursesScreen .card-body .user-name .content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.AdminCoursesScreen .card-body .title {
-  text-transform: uppercase;
-  font-weight: 700;
-  border-bottom: 1px solid var(--dark);
-  padding-bottom: .5rem;
-  margin-bottom: .5rem;
-}
-
-.AdminCoursesScreen .card-body .content {
-  text-transform: capitalize;
-  color: var(--heading-color);
-  font-weight: 500;
-}
-
-.AdminCoursesScreen .card-body .content input {
-  margin-block: .2rem;
-}
-
 .AdminCoursesScreen .accordian-content .add-video {
   background: var(--light);
   padding: .2rem .5rem;
@@ -204,22 +89,4 @@
 .AdminCoursesScreen .accordian-content .add-video > * {
   color: var(--accent);
   transition: .2s ease;
-}
-
-.AdminCoursesScreen .card-footer .footer-group {
-  width: 50%;
-}
-
-.AdminCoursesScreen .card-footer .footer-group .footer-title {
-  color: var(--accent);
-  text-transform: uppercase;
-  padding-bottom: 5px;
-  border-bottom: 2px solid var(--dark);
-  width: 80%;
-}
-
-.AdminCoursesScreen .card-footer .footer-group .footer-desc {
-  font-size: 1rem;
-  font-weight: 900;
-  margin-top: .5rem;
 }

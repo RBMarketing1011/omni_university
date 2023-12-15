@@ -1,0 +1,50 @@
+.AdminUsersScreen {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.AdminUsersScreen .users-heading {
+  border-bottom: 2px solid var(--dark);
+  margin-bottom: 1rem;
+}
+
+.AdminUsersScreen .users-content {
+  width: 100%;
+  height: calc(80vh - 20%);
+  background: var(--light-accent);
+  border-radius: .6rem;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.AdminUsersScreen .users-content .user {
+  margin: 1rem auto;
+}
+
+.AdminUsersScreen .users-content .user .user-heading {
+  background: var(--accent);
+  padding: .5rem;
+  margin-bottom: .5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.AdminUsersScreen .users-content .user-heading .user-name {
+  color: var(--light);
+}
+
+.AdminUsersScreen .users-content .user-heading svg {
+  margin-inline: .5rem;
+}
+
+.AdminUsersScreen .users-content .user-details h4 {
+  border-bottom: 1px solid var(--dark);
+  width: 50%;
+  margin-block: .3rem;
+}
+
+.AdminUsersScreen svg {
+  cursor: pointer;
+}

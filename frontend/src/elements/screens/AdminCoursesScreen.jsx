@@ -19,29 +19,27 @@ import
 } from '../../slices/videosApiSlice'
 
 import { InputField } from '../components/InputField'
+import { SearchBox } from '../components/SearchBox'
+import { SelectField } from '../components/SelectField'
 
 import '../css/AdminCoursesScreen.css'
 
 const AdminCoursesScreen = () =>
 {
-  // ================================================= ALL DATA FOR VIDEOS CRUD OPS =================
+  // ================================================= SEARCH FUNCTIONALITY =================
+  const [ search, setSearch ] = useState('')
 
+  const searchBoxHandler = (e) =>
+  {
+    setSearch(e.target.value)
+  }
+
+  // ================================================= ALL DATA FOR VIDEOS CRUD OPS =================
   //===================================================CREATE VIDEO SECTION=====================
   //Videos mutations
   const [ createVideo ] = useCreateVideoMutation()
 
   // Set Video useState
-
-
-  //==========================Delete After Use=============
-  //   Courseid,
-  //   title,
-  //   videoLink,
-  //   q1, q1a1, q1a2, q1a3,
-  //   q2, q2a1, q2a2, q2a3,
-  //   q3, q3a1, q3a2, q3a3,
-  //==========================Delete After Use=============
-
   const [ openVideoForm, setOpenVideoForm ] = useState(false)
 
   // state for new video
@@ -52,14 +50,17 @@ const AdminCoursesScreen = () =>
   const [ q1a1, setQ1a1 ] = useState('')
   const [ q1a2, setQ1a2 ] = useState('')
   const [ q1a3, setQ1a3 ] = useState('')
+  const [ q1CorrectAnswer, setQ1CorrectAnswer ] = useState('')
   const [ q2, setQ2 ] = useState('')
   const [ q2a1, setQ2a1 ] = useState('')
   const [ q2a2, setQ2a2 ] = useState('')
   const [ q2a3, setQ2a3 ] = useState('')
+  const [ q2CorrectAnswer, setQ2CorrectAnswer ] = useState('')
   const [ q3, setQ3 ] = useState('')
   const [ q3a1, setQ3a1 ] = useState('')
   const [ q3a2, setQ3a2 ] = useState('')
   const [ q3a3, setQ3a3 ] = useState('')
+  const [ q3CorrectAnswer, setQ3CorrectAnswer ] = useState('')
 
   //stateHandlers for InputFields Components
   const videoTitleHandler = (e) =>
@@ -93,6 +94,11 @@ const AdminCoursesScreen = () =>
     setQ1a3(e.target.value)
   }
 
+  const q1CorrectAnswerHandler = (e) =>
+  {
+    setQ1CorrectAnswer(e.target.value)
+  }
+
   //Question 2 handlers
   const q2Handler = (e) =>
   {
@@ -112,6 +118,11 @@ const AdminCoursesScreen = () =>
   const q2a3Handler = (e) =>
   {
     setQ2a3(e.target.value)
+  }
+
+  const q2CorrectAnswerHandler = (e) =>
+  {
+    setQ2CorrectAnswer(e.target.value)
   }
 
   //Question 3 handlers
@@ -135,10 +146,16 @@ const AdminCoursesScreen = () =>
     setQ3a3(e.target.value)
   }
 
+  const q3CorrectAnswerHandler = (e) =>
+  {
+    setQ3CorrectAnswer(e.target.value)
+  }
+
   // =================================================== Video click handlers=======================
   // open new video form
   const openVideoFormHandler = (courseId, courseName) =>
   {
+    resetVideoFormData()
     setCourseIdForVideos(courseId)
     setCourseNameForVideos(courseName)
     setOpenVideoForm(true)
@@ -162,14 +179,17 @@ const AdminCoursesScreen = () =>
     setQ1a1('')
     setQ1a2('')
     setQ1a3('')
+    setQ1CorrectAnswer('')
     setQ2('')
     setQ2a1('')
     setQ2a2('')
     setQ2a3('')
+    setQ2CorrectAnswer('')
     setQ3('')
     setQ3a1('')
     setQ3a2('')
     setQ3a3('')
+    setQ3CorrectAnswer('')
   }
 
   //set all video form useStates
@@ -181,14 +201,17 @@ const AdminCoursesScreen = () =>
     setQ1a1(vid.questions.q1.answers.a1.text)
     setQ1a2(vid.questions.q1.answers.a2.text)
     setQ1a3(vid.questions.q1.answers.a3.text)
+    setQ1CorrectAnswer(vid.questions.q1.answers.correctAnswer)
     setQ2(vid.questions.q2.text)
     setQ2a1(vid.questions.q2.answers.a1.text)
     setQ2a2(vid.questions.q2.answers.a2.text)
     setQ2a3(vid.questions.q2.answers.a3.text)
+    setQ2CorrectAnswer(vid.questions.q2.answers.correctAnswer)
     setQ3(vid.questions.q3.text)
     setQ3a1(vid.questions.q3.answers.a1.text)
     setQ3a2(vid.questions.q3.answers.a2.text)
     setQ3a3(vid.questions.q3.answers.a3.text)
+    setQ3CorrectAnswer(vid.questions.q3.answers.correctAnswer)
   }
 
   //Submit Add Video Handler
@@ -206,16 +229,19 @@ const AdminCoursesScreen = () =>
         q1a1,
         q1a2,
         q1a3,
+        q1CorrectAnswer,
         //Question 2
         q2,
         q2a1,
         q2a2,
         q2a3,
+        q2CorrectAnswer,
         //Question 3
         q3,
         q3a1,
         q3a2,
         q3a3,
+        q3CorrectAnswer
       }).unwrap()
       resetVideoFormData()
       refetchAllCourses()
@@ -223,7 +249,6 @@ const AdminCoursesScreen = () =>
     } catch (err)
     {
       toast.error(err?.data?.message || err.error)
-      console.log(err)
     }
   }
 
@@ -267,16 +292,19 @@ const AdminCoursesScreen = () =>
           q1a1,
           q1a2,
           q1a3,
+          q1CorrectAnswer,
           //Question 2
           q2,
           q2a1,
           q2a2,
           q2a3,
+          q2CorrectAnswer,
           //Question 3
           q3,
           q3a1,
           q3a2,
           q3a3,
+          q3CorrectAnswer
         }
       ).unwrap()
       resetVideoFormData()
@@ -287,7 +315,6 @@ const AdminCoursesScreen = () =>
     } catch (err)
     {
       toast.error(err?.data?.message || err.error)
-      console.log(err)
     }
   }
 
@@ -337,7 +364,6 @@ const AdminCoursesScreen = () =>
     } catch (err)
     {
       toast.error(err?.data?.message || err.error)
-      console.log(err)
     }
   }
 
@@ -413,10 +439,33 @@ const AdminCoursesScreen = () =>
     allCoursesContent = <p>Loading...</p>
   } else if (allCoursesSuccess)
   {
+    // const filtered = courses.filter((course) => (
+
+
+    //   course.title.toLowerCase().includes(search.toLowerCase()) ||
+
+    // ))
+
+    let searchStr = search.toLowerCase()
+    const filtered = courses.filter(function search (row)
+    {
+      return Object.keys(row).some((key) =>
+      {
+        if (typeof row[ key ] === 'string')
+        {
+          return row[ key ].toLowerCase().indexOf(searchStr) > -1
+        } else if (row[ key ] && typeof row[ key ] === 'object')
+        {
+          return search(row[ key ])
+        }
+        return false
+      })
+    })
+
     allCoursesContent =
       <>
         {
-          courses.map(el =>
+          filtered.map(el =>
           (
             <div key={ el._id } className="accordian-item">
               <div className="accordian-title">
@@ -465,6 +514,7 @@ const AdminCoursesScreen = () =>
           <div className="courses-title">
             <h1 className='heading'>Omni U <span>Courses</span></h1>
           </div>
+          <SearchBox placeholder='Seach Courses' state={ search } stateHandler={ (e) => searchBoxHandler(e) } />
           <div className="courses-accordian">
             { allCoursesContent }
           </div>
@@ -477,7 +527,7 @@ const AdminCoursesScreen = () =>
                 <div className="profile-pic">
                   <p>OU</p>
                 </div>
-                <div className="user-name">
+                <div className="header-title">
 
                   {
                     openEditVideoForm ?
@@ -520,6 +570,15 @@ const AdminCoursesScreen = () =>
                             < InputField placeholder='Answer #1' type='text' state={ q1a1 } onChangeHandler={ (e) => q1a1Handler(e) } />
                             < InputField placeholder='Answer #2' type='text' state={ q1a2 } onChangeHandler={ (e) => q1a2Handler(e) } />
                             < InputField placeholder='Answer #3' type='text' state={ q1a3 } onChangeHandler={ (e) => q1a3Handler(e) } />
+                            <SelectField
+                              disabled='Correct Answer'
+                              stateHandler={ (e) => q1CorrectAnswerHandler(e) }
+                              options={ [
+                                q1a1,
+                                q1a2,
+                                q1a3
+                              ] }
+                            />
                           </div>
                         </div>
                         <div className="form-group">
@@ -532,6 +591,15 @@ const AdminCoursesScreen = () =>
                             < InputField placeholder='Answer #1' type='text' state={ q2a1 } onChangeHandler={ (e) => q2a1Handler(e) } />
                             < InputField placeholder='Answer #2' type='text' state={ q2a2 } onChangeHandler={ (e) => q2a2Handler(e) } />
                             < InputField placeholder='Answer #3' type='text' state={ q2a3 } onChangeHandler={ (e) => q2a3Handler(e) } />
+                            <SelectField
+                              disabled='Correct Answer'
+                              stateHandler={ (e) => q2CorrectAnswerHandler(e) }
+                              options={ [
+                                q2a1,
+                                q2a2,
+                                q2a3
+                              ] }
+                            />
                           </div>
                         </div>
                         <div className="form-group">
@@ -544,6 +612,15 @@ const AdminCoursesScreen = () =>
                             < InputField placeholder='Answer #1' type='text' state={ q3a1 } onChangeHandler={ (e) => q3a1Handler(e) } />
                             < InputField placeholder='Answer #2' type='text' state={ q3a2 } onChangeHandler={ (e) => q3a2Handler(e) } />
                             < InputField placeholder='Answer #3' type='text' state={ q3a3 } onChangeHandler={ (e) => q3a3Handler(e) } />
+                            <SelectField
+                              disabled='Correct Answer'
+                              stateHandler={ (e) => q3CorrectAnswerHandler(e) }
+                              options={ [
+                                q3a1,
+                                q3a2,
+                                q3a3
+                              ] }
+                            />
                           </div>
                         </div>
                       </div>
@@ -583,6 +660,15 @@ const AdminCoursesScreen = () =>
                             < InputField placeholder='Answer #1' type='text' state={ q1a1 } onChangeHandler={ (e) => q1a1Handler(e) } />
                             < InputField placeholder='Answer #2' type='text' state={ q1a2 } onChangeHandler={ (e) => q1a2Handler(e) } />
                             < InputField placeholder='Answer #3' type='text' state={ q1a3 } onChangeHandler={ (e) => q1a3Handler(e) } />
+                            <SelectField
+                              disabled='Correct Answer'
+                              stateHandler={ (e) => q1CorrectAnswerHandler(e) }
+                              options={ [
+                                q1a1,
+                                q1a2,
+                                q1a3
+                              ] }
+                            />
                           </div>
                         </div>
                         <div className="form-group">
@@ -595,6 +681,15 @@ const AdminCoursesScreen = () =>
                             < InputField placeholder='Answer #1' type='text' state={ q2a1 } onChangeHandler={ (e) => q2a1Handler(e) } />
                             < InputField placeholder='Answer #2' type='text' state={ q2a2 } onChangeHandler={ (e) => q2a2Handler(e) } />
                             < InputField placeholder='Answer #3' type='text' state={ q2a3 } onChangeHandler={ (e) => q2a3Handler(e) } />
+                            <SelectField
+                              disabled='Correct Answer'
+                              stateHandler={ (e) => q2CorrectAnswerHandler(e) }
+                              options={ [
+                                q2a1,
+                                q2a2,
+                                q2a3
+                              ] }
+                            />
                           </div>
                         </div>
                         <div className="form-group">
@@ -607,6 +702,15 @@ const AdminCoursesScreen = () =>
                             < InputField placeholder='Answer #1' type='text' state={ q3a1 } onChangeHandler={ (e) => q3a1Handler(e) } />
                             < InputField placeholder='Answer #2' type='text' state={ q3a2 } onChangeHandler={ (e) => q3a2Handler(e) } />
                             < InputField placeholder='Answer #3' type='text' state={ q3a3 } onChangeHandler={ (e) => q3a3Handler(e) } />
+                            <SelectField
+                              disabled='Correct Answer'
+                              stateHandler={ (e) => q3CorrectAnswerHandler(e) }
+                              options={ [
+                                q3a1,
+                                q3a2,
+                                q3a3
+                              ] }
+                            />
                           </div>
                         </div>
                       </div>
@@ -621,18 +725,18 @@ const AdminCoursesScreen = () =>
               <div className="card-footer">
                 <div className="footer-group">
                   <h4 className="footer-title">
-                    User Created On:
+                    Having Technical Problems?
                   </h4>
                   <p className="footer-desc">
-                    Date Goes Here
+                    Contact Your IT Department
                   </p>
                 </div>
                 <div className="footer-group">
                   <h4 className="footer-title">
-                    User Last Updated On:
+                    Need Training?
                   </h4>
                   <p className="footer-desc">
-                    Date Goes Here
+                    Contact Your Supervisor
                   </p>
                 </div>
               </div>
@@ -645,7 +749,7 @@ const AdminCoursesScreen = () =>
                 <div className="profile-pic">
                   <p>OU</p>
                 </div>
-                <div className="user-name">
+                <div className="header-title">
 
                   {
                     openTitle ?
@@ -663,11 +767,13 @@ const AdminCoursesScreen = () =>
                   openTitle ?
                     < Form className='card-form' onSubmit={ (e) => submitEditTitleHandler(e) } >
                       <div className="card-container">
-                        <div className="title">
-                          <h4>Edit Course Title</h4>
-                        </div>
-                        <div className="content">
-                          < InputField type='text' state={ editCourseTitle } onChangeHandler={ (e) => editTitleStateHandler(e) } />
+                        <div className="form-group">
+                          <div className="title">
+                            <h4>Edit Course Title</h4>
+                          </div>
+                          <div className="content">
+                            < InputField type='text' state={ editCourseTitle } onChangeHandler={ (e) => editTitleStateHandler(e) } />
+                          </div>
                         </div>
                       </div>
                       <div className="btn-group">
@@ -678,11 +784,13 @@ const AdminCoursesScreen = () =>
                     :
                     < Form className='card-form' onSubmit={ (e) => submitFormHandler(e) } >
                       <div className="card-container">
-                        <div className="title">
-                          <h4>Course Title</h4>
-                        </div>
-                        <div className="content">
-                          < InputField placeholder='Enter Course Title' type='text' state={ courseTitle } onChangeHandler={ (e) => courseTitleStateHandler(e) } />
+                        <div className="form-group">
+                          <div className="title">
+                            <h4>Course Title</h4>
+                          </div>
+                          <div className="content">
+                            < InputField placeholder='Enter Course Title' type='text' state={ courseTitle } onChangeHandler={ (e) => courseTitleStateHandler(e) } />
+                          </div>
                         </div>
                       </div>
                       <div className="btn-group">
@@ -695,18 +803,18 @@ const AdminCoursesScreen = () =>
               <div className="card-footer">
                 <div className="footer-group">
                   <h4 className="footer-title">
-                    User Created On:
+                    Having Technical Problems?
                   </h4>
                   <p className="footer-desc">
-                    Date Goes Here
+                    Contact Your IT Department
                   </p>
                 </div>
                 <div className="footer-group">
                   <h4 className="footer-title">
-                    User Last Updated On:
+                    Need Training?
                   </h4>
                   <p className="footer-desc">
-                    Date Goes Here
+                    Contact Your Supervisor
                   </p>
                 </div>
               </div>

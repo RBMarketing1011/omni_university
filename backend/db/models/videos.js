@@ -22,21 +22,11 @@ const videos = new Schema({
 					text: {
 						type: String,
 						required: true
-					},
-					correctAnswer: {
-						type: Boolean,
-						default: false,
-						required: true
 					}
 				},
 				a2: {
 					text: {
 						type: String,
-						required: true
-					},
-					correctAnswer: {
-						type: Boolean,
-						default: false,
 						required: true
 					}
 				},
@@ -44,12 +34,11 @@ const videos = new Schema({
 					text: {
 						type: String,
 						required: true
-					},
-					correctAnswer: {
-						type: Boolean,
-						default: false,
-						required: true
 					}
+				},
+				correctAnswer: {
+					type: String,
+					required: true
 				}
 			}
 		},
@@ -63,21 +52,11 @@ const videos = new Schema({
 					text: {
 						type: String,
 						required: true
-					},
-					correctAnswer: {
-						type: Boolean,
-						default: false,
-						required: true
 					}
 				},
 				a2: {
 					text: {
 						type: String,
-						required: true
-					},
-					correctAnswer: {
-						type: Boolean,
-						default: false,
 						required: true
 					}
 				},
@@ -85,12 +64,11 @@ const videos = new Schema({
 					text: {
 						type: String,
 						required: true
-					},
-					correctAnswer: {
-						type: Boolean,
-						default: false,
-						required: true
 					}
+				},
+				correctAnswer: {
+					type: String,
+					required: true
 				}
 			}
 		},
@@ -104,21 +82,11 @@ const videos = new Schema({
 					text: {
 						type: String,
 						required: true
-					},
-					correctAnswer: {
-						type: Boolean,
-						default: false,
-						required: true
 					}
 				},
 				a2: {
 					text: {
 						type: String,
-						required: true
-					},
-					correctAnswer: {
-						type: Boolean,
-						default: false,
 						required: true
 					}
 				},
@@ -126,12 +94,11 @@ const videos = new Schema({
 					text: {
 						type: String,
 						required: true
-					},
-					correctAnswer: {
-						type: Boolean,
-						default: false,
-						required: true
 					}
+				},
+				correctAnswer: {
+					type: String,
+					required: true
 				}
 			}
 		}

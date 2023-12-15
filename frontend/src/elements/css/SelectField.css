@@ -1,0 +1,21 @@
+.SelectField select {
+  cursor: pointer;
+}
+
+.SelectField option {
+  background: var(--light-accent);
+  color: var(--accent);
+  transition: .2s ease;
+}
+
+.SelectField select option:hover,
+.SelectField select option:checked,
+.SelectField select:focus > option:checked,
+.SelectField select:focus > option:hover {
+  background: var(--accent);
+  color: var(--light);
+}
+
+.SelectField select option:disabled {
+  color: var(--light);
+}

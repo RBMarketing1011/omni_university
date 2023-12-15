@@ -1,6 +1,5 @@
-import '../css/InputField.css'
 
-const InputField = ( { placeholder, type, state, onChangeHandler } ) =>
+const InputField = ({ placeholder, type, state, onChangeHandler }) =>
 {
   return (
     <div className='InputField'>
