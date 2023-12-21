@@ -39,6 +39,7 @@ module.exports.userLogin = asyncHandler(async (req, res) =>
 	const lowerCaseEmail = email.toLowerCase()
 
 	const user = await User.findOne({ email: lowerCaseEmail })
+		.populate({ path: 'omniUProgress', populate: [ 'coursesComplete', 'videosComplete' ] })
 
 	//See if user found with valid password
 	if (user && (await user.matchPassword(password)))
@@ -90,6 +91,7 @@ module.exports.getAllUsers = asyncHandler(async (req, res) =>
 	try
 	{
 		const allUsers = await User.find({})
+			.populate({ path: 'omniUProgress', populate: [ 'coursesComplete', 'videosComplete' ] })
 		res.status(200).json({ allUsers }) //Format Properly
 	} catch (err)
 	{
@@ -121,6 +123,27 @@ module.exports.updateUser = asyncHandler(async (req, res) =>
 	} catch (err)
 	{
 		res.send(err.message)
+	}
+})
+
+//PATCH - Update Courses Complete For User Data
+//Private
+// /api/users/:id/updateCourses
+module.exports.updateUserCourses = asyncHandler(async (req, res) =>
+{
+	try
+	{
+		const { courseId } = req.body
+		const { id } = req.params
+		const user = await User.findById(id)
+		user.omniUProgress.coursesComplete.push(courseId)
+		await user.save()
+
+		res.status(200).json(user)
+
+	} catch (err)
+	{
+		res.json(err.message)
 	}
 })
 

@@ -84,9 +84,9 @@ const AdminUsersScreen = () =>
                   <div className="user-completed-courses">
                     <h4>Courses Completed</h4>
                     {
-                      user.omniUProgress.coursesComplete.includes('') ?
+                      user.omniUProgress.coursesComplete.length > 0 ?
                         user.omniUProgress.coursesComplete.map((course, index) => (
-                          <p key={ index }>{ course }</p>
+                          <p key={ index }>{ course.title }</p>
                         ))
                         :
                         <p>No Courses Completed</p>

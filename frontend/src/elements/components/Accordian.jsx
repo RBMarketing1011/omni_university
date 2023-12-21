@@ -5,7 +5,7 @@ import { FaPlus, FaCircleXmark, FaCheck } from 'react-icons/fa6'
 
 import '../css/Accordian.css'
 
-const Accordian = ({ name, content, func }) =>
+const Accordian = ({ courseId, name, content, func }) =>
 {
   //=================== INITIATE USERINFO SO I CAN CHECK VIDEO AND COURSE COMPLETE=====================
   const { userInfo } = useSelector(state => state.auth)
@@ -22,7 +22,12 @@ const Accordian = ({ name, content, func }) =>
     <div className='Accordian'>
       <div className="group-title" onClick={ (e) => { accordianHandler(e) } }>
         <h2>{ name }</h2>
-        <FaPlus />
+        {
+          userInfo.omniUProgress.coursesComplete.includes(courseId) ?
+            <FaCheck />
+            :
+            <FaPlus />
+        }
       </div>
 
       <div className="group-content" ref={ contentRef }>

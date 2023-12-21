@@ -94,21 +94,6 @@ const ProfileScreen = () =>
             </div>
             <div className="form-group">
               <div className="title">
-                <h4>Completed Omni University</h4>
-              </div>
-              <div className="content">
-                {
-                  userInfo &&
-
-                    userInfo.completedOU ?
-                    <p>Yes</p>
-                    :
-                    <p>No</p>
-                }
-              </div>
-            </div>
-            <div className="form-group">
-              <div className="title">
                 <h4>Courses Completed</h4>
               </div>
               <div className="content">
@@ -119,7 +104,7 @@ const ProfileScreen = () =>
                     userInfo.omniUProgress.coursesComplete.length ?
 
                     userInfo.omniUProgress.coursesComplete.map((course, courseIndex) => (
-                      <p key={ courseIndex }>{ course }</p>
+                      <p key={ courseIndex }>{ course.title }</p>
                     ))
 
                     :
@@ -142,7 +127,7 @@ const ProfileScreen = () =>
                     userInfo.omniUProgress.videosComplete.length ?
 
                     userInfo.omniUProgress.videosComplete.map((vid, vidIndex) => (
-                      <p key={ vidIndex }>{ vid }</p>
+                      <p key={ vidIndex }>{ vid.title }</p>
                     ))
 
                     :

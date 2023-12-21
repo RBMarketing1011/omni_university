@@ -36,6 +36,13 @@ export const userApiSlice = apiSlice.injectEndpoints({
 				body: data,
 			}),
 		}),
+		updateUserCourses: builder.mutation({
+			query: (data) => ({
+				url: `/users/${ data.id }/updateCourses`,
+				method: 'PATCH',
+				body: data,
+			}),
+		}),
 		deleteUser: builder.mutation({
 			query: ({ id }) => ({
 				url: `/users/${ id }`,
@@ -57,6 +64,7 @@ export const {
 	useRegisterMutation,
 	useUpdateUserMutation,
 	useUpdateUserVideosMutation,
+	useUpdateUserCoursesMutation,
 	useDeleteUserMutation,
 	useGetUserProfileQuery,
 	useGetAllUserProfilesQuery

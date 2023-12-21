@@ -9,6 +9,7 @@ const {
 	getAllUsers,
 	updateUser,
 	updateUserVideos,
+	updateUserCourses,
 	deleteUser,
 } = require('../controllers/usersController')
 
@@ -31,5 +32,8 @@ router.route('/:id')
 
 router.route('/:id/updateVideos')
 	.patch(updateUserVideos)
+
+router.route('/:id/updateCourses')
+	.patch(updateUserCourses)
 
 module.exports = router

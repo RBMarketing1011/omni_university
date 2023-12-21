@@ -10,7 +10,8 @@ import { SelectField } from '../components/SelectField'
 
 import
 {
-  useUpdateUserVideosMutation
+  useUpdateUserVideosMutation,
+  useUpdateUserCoursesMutation
 } from '../../slices/usersApiSlice'
 
 import { setCredentials } from '../../slices/authSlice'
@@ -107,13 +108,41 @@ const CoursesScreen = () =>
     setQ3SubmittedAnswer(e.target.value)
   }
 
+  // =============Algorithm to check if course completed or not=========================
+  const [ updateCourses ] = useUpdateUserCoursesMutation()
+
+  const isCourseCompleteHandler = async (arr, target, allCoursesCompleted, course) =>
+  {
+    // console.log(arr)
+    // console.log(target)
+
+    if (target.every(value => arr.includes(value)))
+    {
+      if (!allCoursesCompleted.includes(course._id))
+      {
+        try
+        {
+          const res = await updateCourses({ courseId: course._id, id: userInfo._id }).unwrap()
+          dispatch(setCredentials(res))
+          toast.success(course.title + ' Course Completed')
+        } catch (err)
+        {
+          toast.error(err?.data?.message || err.error)
+        }
+      }
+    }
+
+  }
+
+
+  // SUBMIT FORM AND ADD ID OF VIDEO TO 'VIDEOSCOMPLETE' IF CORRECT ANSWERS GIVEN
   const submitFormHandler = async (e) =>
   {
     e.preventDefault()
 
-    console.log(q1SubmittedAnswer + '    ' + q1CorrectAnswer)
-    console.log(q2SubmittedAnswer + '    ' + q2CorrectAnswer)
-    console.log(q3SubmittedAnswer + '    ' + q3CorrectAnswer)
+    // console.log(q1CorrectAnswer + '     ' + q1SubmittedAnswer)
+    // console.log(q2CorrectAnswer + '     ' + q2SubmittedAnswer)
+    // console.log(q3CorrectAnswer + '     ' + q3SubmittedAnswer)
 
     if (
       q1SubmittedAnswer === q1CorrectAnswer &&
@@ -136,29 +165,29 @@ const CoursesScreen = () =>
           dispatch(setCredentials(res))
           resetForm()
           toast.success('Congrats, You Passed')
+
+          //CHECK IF COURSE COMPLETED
+          let videos = []
+
+          courses.map(course => (
+            course.videos.map(vid => videos.push(vid._id)),
+            isCourseCompleteHandler(res.omniUProgress.videosComplete, videos, res.omniUProgress.coursesComplete, course),
+            videos = []
+          ))
+
         } catch (err)
         {
           toast.error(err?.data?.message || err.error)
-          console.log(err)
         }
       }
     } else
     {
       toast.error('Sorry You Failed')
+      resetForm()
     }
   }
-  //======================================
 
-  const checkSubset = (parentArray, subsetArray) =>
-  {
-    return subsetArray.every((el) =>
-    {
-      console.log(el)
-      return parentArray.includes(el)
-    })
-  }
-
-  //=================================GET ALL COURSES AND COURSE VIDEOS ================================
+  //======================GET ALL COURSES AND COURSE VIDEOS================================
   let coursesContent
   const {
     data: courses,
@@ -173,22 +202,9 @@ const CoursesScreen = () =>
     coursesContent = <p>Loading...</p>
   } else if (isSuccess)
   {
-    let X = []
-    let Y = []
 
-    userInfo.omniUProgress.videosComplete.map(id => (
-      X.push(id._id)
-    ))
-
-    courses.map(course => (
-      course.videos.map(id => (
-        Y.push(id._id)
-      ))
-    ))
-
-    console.log(X)
-    console.log(Y)
-
+    //==========================================================================================
+    // coursesContent returned from query
     coursesContent =
       (
         <div className="group-container">
@@ -201,6 +217,7 @@ const CoursesScreen = () =>
             courses.map(course => (
               <Accordian
                 key={ course._id }
+                courseId={ course._id }
                 name={ course.title }
                 content={ course.videos }
                 func={ videoHandler }
