@@ -5,7 +5,7 @@ import { FaArrowRightFromBracket, FaPenToSquare } from 'react-icons/fa6'
 import { toast } from 'react-toastify'
 
 import { removeCredentials } from '../../slices/authSlice'
-import { useLogoutMutation } from '../../slices/usersApiSlice'
+import { useLogoutMutation, useGetUserProfileQuery } from '../../slices/usersApiSlice'
 
 import '../css/ProfileScreen.css'
 
@@ -13,10 +13,7 @@ const ProfileScreen = () =>
 {
   const { userInfo } = useSelector(state => state.auth)
 
-  const [ createdAt, setCreatedAt ] = useState(userInfo && new Date(userInfo.createdAt).toDateString())
-  const [ updatedAt, setUpdatedAt ] = useState(userInfo && new Date(userInfo.updatedAt).toDateString())
-
-  //========================================================Logout User=================================
+  //===================================Logout User=================================
 
   //set dispatch and navigate func()
   const navigate = useNavigate()
@@ -40,20 +37,36 @@ const ProfileScreen = () =>
     }
   }
 
-  return (
-    <div className='ProfileScreen'>
+  //================User Profile Fetch=====================================
+  const {
+    data: user,
+    isLoading: profileLoading,
+    isSuccess: profileSuccess,
+    isError: profileIsError,
+    error: profileError,
+    refetch: profilefetch
+  } = useGetUserProfileQuery(userInfo._id)
+
+  let profile
+  if (profileLoading)
+  {
+    profile = <p>Loading</p>
+  } else if (profileSuccess)
+  {
+    const createdAt = new Date(user.createdAt).toDateString()
+    const updatedAt = new Date(user.updatedAt).toDateString()
+
+    profile = (
       <div className="card">
         <div className="card-header">
           <div className="profile-pic">
             {
-              userInfo &&
-              <p>{ userInfo.name.firstName.charAt(0) }{ userInfo.name.lastName.charAt(0) }</p>
+              <p>{ user.name.firstName.charAt(0) }{ user.name.lastName.charAt(0) }</p>
             }
           </div>
           <div className="header-title">
             {
-              userInfo &&
-              <h4>{ userInfo.name.firstName } <span>{ userInfo.name.lastName }</span></h4>
+              <h4>{ user.name.firstName } <span>{ user.name.lastName }</span></h4>
             }
           </div>
         </div>
@@ -65,8 +78,7 @@ const ProfileScreen = () =>
               </div>
               <div className="content">
                 {
-                  userInfo &&
-                  <p>{ userInfo.name.firstName } { userInfo.name.lastName }</p>
+                  <p>{ user.name.firstName } { user.name.lastName }</p>
                 }
               </div>
             </div>
@@ -76,8 +88,7 @@ const ProfileScreen = () =>
               </div>
               <div className="content">
                 {
-                  userInfo &&
-                  <p>{ userInfo.email }</p>
+                  <p>{ user.email }</p>
                 }
               </div>
             </div>
@@ -87,8 +98,7 @@ const ProfileScreen = () =>
               </div>
               <div className="content">
                 {
-                  userInfo &&
-                  <p>{ userInfo.role }</p>
+                  <p>{ user.role }</p>
                 }
               </div>
             </div>
@@ -99,16 +109,12 @@ const ProfileScreen = () =>
               <div className="content">
 
                 {
-                  userInfo &&
+                  user.omniUProgress.coursesComplete.length > 0 ?
 
-                    userInfo.omniUProgress.coursesComplete.length ?
-
-                    userInfo.omniUProgress.coursesComplete.map((course, courseIndex) => (
+                    user.omniUProgress.coursesComplete.map((course, courseIndex) => (
                       <p key={ courseIndex }>{ course.title }</p>
                     ))
-
                     :
-
                     <p>No Courses Complete</p>
 
                 }
@@ -122,11 +128,10 @@ const ProfileScreen = () =>
               <div className="content">
 
                 {
-                  userInfo &&
 
-                    userInfo.omniUProgress.videosComplete.length ?
+                  user.omniUProgress.videosComplete.length > 0 ?
 
-                    userInfo.omniUProgress.videosComplete.map((vid, vidIndex) => (
+                    user.omniUProgress.videosComplete.map((vid, vidIndex) => (
                       <p key={ vidIndex }>{ vid.title }</p>
                     ))
 
@@ -182,7 +187,17 @@ const ProfileScreen = () =>
           </div>
         </div>
       </div>
-    </div>
+    )
+
+  } else if (profileIsError)
+  {
+    profile = <p>{ profileError }</p>
+  }
+
+  return (
+    <div className='ProfileScreen' >
+      { profile }
+    </div >
   )
 }
 

@@ -27,6 +27,12 @@ const Sidebar = () =>
   //initiate userInfo from state.auth
   const { userInfo } = useSelector(state => state.auth)
 
+  let isAuth
+  if (userInfo)
+  {
+    isAuth = userInfo.role.includes('admin') || userInfo.role.includes('manager') || userInfo.role.includes('lead')
+  }
+
   //set dispatch and navigate func()
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -113,7 +119,7 @@ const Sidebar = () =>
             </div>
 
             {
-              userInfo.role.includes('admin') &&
+              isAuth &&
 
               <div className="menu">
                 <h4 className="menu-heading text-center">Admin</h4>

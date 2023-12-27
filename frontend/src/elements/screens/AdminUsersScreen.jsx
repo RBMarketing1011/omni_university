@@ -17,10 +17,18 @@ import { SelectField } from '../components/SelectField'
 import { SearchBox } from '../components/SearchBox'
 
 import '../css/AdminUsersScreen.css'
+import { useSelector } from 'react-redux'
 
 const AdminUsersScreen = () =>
 {
-  //=============================================================Users CRUD Ops =====================
+  const { userInfo } = useSelector(state => state.auth)
+
+  let isAuth
+  if (userInfo)
+  {
+    isAuth = userInfo.role.includes('admin') || userInfo.role.includes('manager')
+  }
+  //============================Users CRUD Ops =====================
 
   //========================================================Search Box Handler ===================
   const [ search, setSearch ] = useState('')
@@ -63,10 +71,15 @@ const AdminUsersScreen = () =>
               <div key={ user._id } className="user">
                 <div className="user-heading">
                   <h2 className='user-name'>{ user.name.firstName } { user.name.lastName }</h2>
-                  <div className="user-icons">
-                    <FaPenToSquare size={ 25 } style={ { color: 'var(--light)' } } onClick={ () => editUser(user) } />
-                    <FaTrash size={ 25 } style={ { color: 'var(--main-red)' } } onClick={ (e) => deleteUser(user._id) } />
-                  </div>
+
+                  {
+                    isAuth &&
+                    <div className="user-icons">
+                      <FaPenToSquare size={ 25 } style={ { color: 'var(--light)' } } onClick={ () => editUser(user) } />
+                      <FaTrash size={ 25 } style={ { color: 'var(--main-red)' } } onClick={ (e) => deleteUser(user._id) } />
+                    </div>
+                  }
+
                 </div>
                 <div className="user-details">
                   <div className="user-email">
@@ -239,161 +252,166 @@ const AdminUsersScreen = () =>
 
         </div>
       </div>
-      <div className="card">
-        <div className="card-header">
-          <div className="profile-pic">
-            <p>OU</p>
+
+      {
+        isAuth &&
+        <div className="card">
+          <div className="card-header">
+            <div className="profile-pic">
+              <p>OU</p>
+            </div>
+            <div className="header-title">
+
+              {
+                openEditUser ?
+                  <h4>Edit User</h4>
+                  :
+                  <h4>Create User</h4>
+              }
+
+            </div>
           </div>
-          <div className="header-title">
+          <div className="card-body">
 
             {
               openEditUser ?
-                <h4>Edit User</h4>
+
+                <Form className='card-form' onSubmit={ (e) => submitEditUserForm(e) }>
+                  <div className="card-container">
+                    <div className="form-group" style={ { marginTop: '0' } }>
+                      <div className="title">
+                        <h4>Firstname</h4>
+                      </div>
+                      <div className="content">
+                        < InputField placeholder='First Name' type='text' state={ firstName } onChangeHandler={ (e) => firstnameStateHandler(e) } />
+                      </div>
+                    </div>
+                    <div className="form-group" style={ { marginTop: '0' } }>
+                      <div className="title">
+                        <h4>Lastname</h4>
+                      </div>
+                      <div className="content">
+                        < InputField placeholder='Last Name' type='text' state={ lastName } onChangeHandler={ (e) => lastnameStateHandler(e) } />
+                      </div>
+                    </div>
+                    <div className="form-group" style={ { marginTop: '0' } }>
+                      <div className="title">
+                        <h4>Email</h4>
+                      </div>
+                      <div className="content">
+                        < InputField placeholder='Email' type='email' state={ email } onChangeHandler={ (e) => emailStateHandler(e) } />
+                      </div>
+                    </div>
+                    <div className="form-group" style={ { marginTop: '0' } }>
+                      <div className="title">
+                        <h4>Role</h4>
+                      </div>
+                      <div className="content">
+
+                        <SelectField
+                          stateHandler={ (e) => roleStateHandler(e) }
+                          options={ [
+                            'employee',
+                            'lead',
+                            'manager',
+                            'admin'
+                          ] }
+                          disabled='Choose A Role'
+                        />
+
+                      </div>
+                    </div>
+                  </div>
+                  <div className="btn-group">
+                    <button type='submit' className='btn-primary'>Save Changes</button>
+                    <a className='btn-primary' onClick={ closeUpdateUser }>Close</a>
+                  </div>
+                </Form>
+
                 :
-                <h4>Create User</h4>
+
+                <Form className='card-form' onSubmit={ (e) => submitRegisterUserForm(e) }>
+                  <div className="card-container">
+                    <div className="form-group" style={ { marginTop: '0' } }>
+                      <div className="title">
+                        <h4>Firstname</h4>
+                      </div>
+                      <div className="content">
+                        < InputField placeholder='First Name' type='text' state={ firstName } onChangeHandler={ (e) => firstnameStateHandler(e) } />
+                      </div>
+                    </div>
+                    <div className="form-group" style={ { marginTop: '0' } }>
+                      <div className="title">
+                        <h4>Lastname</h4>
+                      </div>
+                      <div className="content">
+                        < InputField placeholder='Last Name' type='text' state={ lastName } onChangeHandler={ (e) => lastnameStateHandler(e) } />
+                      </div>
+                    </div>
+                    <div className="form-group" style={ { marginTop: '0' } }>
+                      <div className="title">
+                        <h4>Email</h4>
+                      </div>
+                      <div className="content">
+                        < InputField placeholder='Email' type='email' state={ email } onChangeHandler={ (e) => emailStateHandler(e) } />
+                      </div>
+                    </div>
+                    <div className="form-group" style={ { marginTop: '0' } }>
+                      <div className="title">
+                        <h4>Password</h4>
+                      </div>
+                      <div className="content">
+                        <PasswordField placeholder='Password' state={ password } onChangeHandler={ (e) => passwordStateHandler(e) } />
+                      </div>
+                    </div>
+                    <div className="form-group" style={ { marginTop: '0' } }>
+                      <div className="title">
+                        <h4>Role</h4>
+                      </div>
+                      <div className="content">
+
+                        <SelectField
+                          stateHandler={ (e) => roleStateHandler(e) }
+                          options={ [
+                            'employee',
+                            'lead',
+                            'manager',
+                            'admin'
+                          ] }
+                          disabled='Choose A Role'
+                        />
+
+                      </div>
+                    </div>
+                  </div>
+                  <div className="btn-group">
+                    <button type='submit' className='btn-primary'>Add New User</button>
+                  </div>
+                </Form>
             }
 
           </div>
-        </div>
-        <div className="card-body">
-
-          {
-            openEditUser ?
-
-              <Form className='card-form' onSubmit={ (e) => submitEditUserForm(e) }>
-                <div className="card-container">
-                  <div className="form-group" style={ { marginTop: '0' } }>
-                    <div className="title">
-                      <h4>Firstname</h4>
-                    </div>
-                    <div className="content">
-                      < InputField placeholder='First Name' type='text' state={ firstName } onChangeHandler={ (e) => firstnameStateHandler(e) } />
-                    </div>
-                  </div>
-                  <div className="form-group" style={ { marginTop: '0' } }>
-                    <div className="title">
-                      <h4>Lastname</h4>
-                    </div>
-                    <div className="content">
-                      < InputField placeholder='Last Name' type='text' state={ lastName } onChangeHandler={ (e) => lastnameStateHandler(e) } />
-                    </div>
-                  </div>
-                  <div className="form-group" style={ { marginTop: '0' } }>
-                    <div className="title">
-                      <h4>Email</h4>
-                    </div>
-                    <div className="content">
-                      < InputField placeholder='Email' type='email' state={ email } onChangeHandler={ (e) => emailStateHandler(e) } />
-                    </div>
-                  </div>
-                  <div className="form-group" style={ { marginTop: '0' } }>
-                    <div className="title">
-                      <h4>Role</h4>
-                    </div>
-                    <div className="content">
-
-                      <SelectField
-                        stateHandler={ (e) => roleStateHandler(e) }
-                        options={ [
-                          'employee',
-                          'lead',
-                          'manager',
-                          'admin'
-                        ] }
-                        disabled='Choose A Role'
-                      />
-
-                    </div>
-                  </div>
-                </div>
-                <div className="btn-group">
-                  <button type='submit' className='btn-primary'>Save Changes</button>
-                  <a className='btn-primary' onClick={ closeUpdateUser }>Close</a>
-                </div>
-              </Form>
-
-              :
-
-              <Form className='card-form' onSubmit={ (e) => submitRegisterUserForm(e) }>
-                <div className="card-container">
-                  <div className="form-group" style={ { marginTop: '0' } }>
-                    <div className="title">
-                      <h4>Firstname</h4>
-                    </div>
-                    <div className="content">
-                      < InputField placeholder='First Name' type='text' state={ firstName } onChangeHandler={ (e) => firstnameStateHandler(e) } />
-                    </div>
-                  </div>
-                  <div className="form-group" style={ { marginTop: '0' } }>
-                    <div className="title">
-                      <h4>Lastname</h4>
-                    </div>
-                    <div className="content">
-                      < InputField placeholder='Last Name' type='text' state={ lastName } onChangeHandler={ (e) => lastnameStateHandler(e) } />
-                    </div>
-                  </div>
-                  <div className="form-group" style={ { marginTop: '0' } }>
-                    <div className="title">
-                      <h4>Email</h4>
-                    </div>
-                    <div className="content">
-                      < InputField placeholder='Email' type='email' state={ email } onChangeHandler={ (e) => emailStateHandler(e) } />
-                    </div>
-                  </div>
-                  <div className="form-group" style={ { marginTop: '0' } }>
-                    <div className="title">
-                      <h4>Password</h4>
-                    </div>
-                    <div className="content">
-                      <PasswordField placeholder='Password' state={ password } onChangeHandler={ (e) => passwordStateHandler(e) } />
-                    </div>
-                  </div>
-                  <div className="form-group" style={ { marginTop: '0' } }>
-                    <div className="title">
-                      <h4>Role</h4>
-                    </div>
-                    <div className="content">
-
-                      <SelectField
-                        stateHandler={ (e) => roleStateHandler(e) }
-                        options={ [
-                          'employee',
-                          'lead',
-                          'manager',
-                          'admin'
-                        ] }
-                        disabled='Choose A Role'
-                      />
-
-                    </div>
-                  </div>
-                </div>
-                <div className="btn-group">
-                  <button type='submit' className='btn-primary'>Add New User</button>
-                </div>
-              </Form>
-          }
-
-        </div>
-        <div className="card-footer">
-          <div className="footer-group">
-            <h4 className="footer-title">
-              Having Technical Problems?
-            </h4>
-            <p className="footer-desc">
-              Contact Your IT Department
-            </p>
-          </div>
-          <div className="footer-group">
-            <h4 className="footer-title">
-              Need Training?
-            </h4>
-            <p className="footer-desc">
-              Contact Your Supervisor
-            </p>
+          <div className="card-footer">
+            <div className="footer-group">
+              <h4 className="footer-title">
+                Having Technical Problems?
+              </h4>
+              <p className="footer-desc">
+                Contact Your IT Department
+              </p>
+            </div>
+            <div className="footer-group">
+              <h4 className="footer-title">
+                Need Training?
+              </h4>
+              <p className="footer-desc">
+                Contact Your Supervisor
+              </p>
+            </div>
           </div>
         </div>
-      </div>
+      }
+
     </div>
   )
 }

@@ -1,0 +1,114 @@
+.DashboardScreen .card {
+  width: 100%;
+}
+
+.DashboardScreen .card .card-body {
+  flex-direction: row;
+  height: 100%;
+}
+
+.DashboardScreen .header-title {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.DashboardScreen .header-title .progress {
+  width: 50%;
+  height: 85px;
+  transform: translateY(-1.1rem);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  flex-direction: column;
+  gap: .5rem;
+  border-radius: .3rem;
+  box-shadow: 0 0 5px var(--accent);
+  margin-left: 1rem;
+  padding: .5rem 1rem;
+}
+
+.DashboardScreen .header-title .progress .bar {
+  width: 100%;
+  height: 30px;
+  border: 2px solid var(--accent);
+  border-radius: .3rem;
+  padding: .3rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.DashboardScreen .header-title .progress .bar span {
+  display: inline-block;
+  background: var(--accent);
+  height: 100%;
+  border-radius: .2rem;
+}
+
+.DashboardScreen .card .card-body .courses {
+  width: 45%;
+  height: 100%;
+  background: var(--light);
+  padding: .5rem 1rem;
+  border-radius: .6rem;
+  box-shadow: 0 0 10px var(--accent);
+  overflow-y: auto;
+}
+
+.DashboardScreen .card .card-body .courses .content-link span {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.DashboardScreen .card .card-body .courses .content-link .course-title {
+  padding-block: .2rem;
+  margin-block: 1rem;
+  background: var(--light-accent);
+  padding: .1rem .5rem;
+}
+
+.DashboardScreen .card .card-body .courses .content-link .course-title h1 {
+  color: var(--accent);
+}
+
+.DashboardScreen .card .card-body .courses .content-link .course-videos {
+  padding-block: .2rem;
+  margin-block: 1rem;
+  padding: .1rem .5rem .1rem 1.5rem;
+}
+
+.DashboardScreen .card .card-body .courses .content-link .course-videos h3 {
+  color: black;
+}
+
+.DashboardScreen .card .card-body .courses .content-link span svg {
+  width: 10%;
+}
+
+.DashboardScreen .card .card-body .userInfo {
+  padding-right: 2rem;
+}
+
+.DashboardScreen .card .card-body .userInfo .userInfo-group {
+  margin-block: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.DashboardScreen .card .card-body .userInfo h2 {
+  color: var(--dark);
+}
+
+.DashboardScreen .card .card-body .userInfo .title h4 {
+  border-bottom: 1px solid var(--dark);
+  padding-bottom: .2rem;
+  margin-bottom: .3rem;
+}
+
+.DashboardScreen .card .card-body .userInfo .navlink {
+  font-size: 1.5rem;
+  margin-left: 0;
+  width: max-content;
+}

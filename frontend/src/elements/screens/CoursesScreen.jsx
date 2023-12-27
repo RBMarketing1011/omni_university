@@ -4,7 +4,6 @@ import { Link, Form } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { FaPlus, FaCircleXmark } from 'react-icons/fa6'
 
-import { useGetAllCoursesQuery } from '../../slices/coursesApiSlice'
 import { Accordian } from '../components/Accordian'
 import { SelectField } from '../components/SelectField'
 
@@ -13,6 +12,8 @@ import
   useUpdateUserVideosMutation,
   useUpdateUserCoursesMutation
 } from '../../slices/usersApiSlice'
+
+import { useGetAllCoursesQuery } from '../../slices/coursesApiSlice'
 
 import { setCredentials } from '../../slices/authSlice'
 
@@ -113,8 +114,6 @@ const CoursesScreen = () =>
 
   const isCourseCompleteHandler = async (arr, target, allCoursesCompleted, course) =>
   {
-    // console.log(arr)
-    // console.log(target)
 
     if (target.every(value => arr.includes(value)))
     {
@@ -134,15 +133,10 @@ const CoursesScreen = () =>
 
   }
 
-
   // SUBMIT FORM AND ADD ID OF VIDEO TO 'VIDEOSCOMPLETE' IF CORRECT ANSWERS GIVEN
   const submitFormHandler = async (e) =>
   {
     e.preventDefault()
-
-    // console.log(q1CorrectAnswer + '     ' + q1SubmittedAnswer)
-    // console.log(q2CorrectAnswer + '     ' + q2SubmittedAnswer)
-    // console.log(q3CorrectAnswer + '     ' + q3SubmittedAnswer)
 
     if (
       q1SubmittedAnswer === q1CorrectAnswer &&
@@ -217,9 +211,7 @@ const CoursesScreen = () =>
             courses.map(course => (
               <Accordian
                 key={ course._id }
-                courseId={ course._id }
-                name={ course.title }
-                content={ course.videos }
+                content={ course }
                 func={ videoHandler }
               />
             ))

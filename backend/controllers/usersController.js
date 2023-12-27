@@ -1,5 +1,6 @@
 const asyncHandler = require('express-async-handler')
 const User = require('../db/models/users')
+const Videos = require('../db/models/videos')
 const genToken = require('../utils/genToken')
 
 // POST - Register User
@@ -20,9 +21,8 @@ module.exports.userRegister = asyncHandler(async (req, res) =>
 
 	if (newUser)
 	{
-		genToken(res, newUser._id)
-
-		res.status(201).json(user)
+		const sendUser = await User.findById(newUser._id).select('-password')
+		res.status(201).json(sendUser)
 	} else
 	{
 		res.status(400)
@@ -39,13 +39,13 @@ module.exports.userLogin = asyncHandler(async (req, res) =>
 	const lowerCaseEmail = email.toLowerCase()
 
 	const user = await User.findOne({ email: lowerCaseEmail })
-		.populate({ path: 'omniUProgress', populate: [ 'coursesComplete', 'videosComplete' ] })
 
 	//See if user found with valid password
 	if (user && (await user.matchPassword(password)))
 	{
-		const token = genToken(res, user._id)
-		res.status(200).json(user)
+		genToken(res, user._id)
+		const sendUser = await User.findById(user._id).select('-password')
+		res.status(200).json(sendUser)
 	} else
 	{
 		//Invalid Info
@@ -74,11 +74,12 @@ module.exports.getUser = asyncHandler(async (req, res) =>
 	try
 	{
 		const { id } = req.params
-		const user = await User.findById(id)
-		res.status(200).json(user) //Format Properly
+		const user = await User.findById(id).select('-password')
+			.populate({ path: 'omniUProgress', populate: [ 'coursesComplete', 'videosComplete' ] })
+		res.status(200).json(user)
 	} catch (error)
 	{
-		res.status(400) //Handle Errors Properly
+		res.status(400)
 		throw new Error('User Not Found')
 	}
 })
@@ -90,7 +91,7 @@ module.exports.getAllUsers = asyncHandler(async (req, res) =>
 {
 	try
 	{
-		const allUsers = await User.find({})
+		const allUsers = await User.find({}).select('-password')
 			.populate({ path: 'omniUProgress', populate: [ 'coursesComplete', 'videosComplete' ] })
 		res.status(200).json({ allUsers }) //Format Properly
 	} catch (err)
@@ -118,7 +119,9 @@ module.exports.updateUser = asyncHandler(async (req, res) =>
 				role
 			})
 
-		res.status(200).json(user)
+		const sendUser = await User.findById(user._id).select('-password')
+
+		res.status(200).json(sendUser)
 
 	} catch (err)
 	{
@@ -139,7 +142,9 @@ module.exports.updateUserCourses = asyncHandler(async (req, res) =>
 		user.omniUProgress.coursesComplete.push(courseId)
 		await user.save()
 
-		res.status(200).json(user)
+		const sendUser = await User.findById(user._id).select('-password')
+
+		res.status(200).json(sendUser)
 
 	} catch (err)
 	{
@@ -160,7 +165,9 @@ module.exports.updateUserVideos = asyncHandler(async (req, res) =>
 		user.omniUProgress.videosComplete.push(videoId)
 		await user.save()
 
-		res.status(200).json(user)
+		const sendUser = await User.findById(user._id).select('-password')
+
+		res.status(200).json(sendUser)
 
 	} catch (err)
 	{
@@ -176,7 +183,7 @@ module.exports.deleteUser = asyncHandler(async (req, res) =>
 	try
 	{
 		const { id } = req.params
-		const deleteUser = await User.findByIdAndDelete(id)
+		await User.findByIdAndDelete(id)
 		res.status(200).json({ message: 'User Deleted' })
 	} catch (err)
 	{

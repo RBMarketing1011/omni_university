@@ -13,27 +13,29 @@ const {
 	deleteUser,
 } = require('../controllers/usersController')
 
+const { isLoggedIn, isAdmin } = require('../middleware/AuthMiddleware')
+
 router.route('/all')
-	.get(getAllUsers)
+	.get(isLoggedIn, isAdmin, getAllUsers)
 
 router.route('/register')
-	.post(userRegister)
+	.post(isLoggedIn, isAdmin, userRegister)
 
 router.route('/login')
 	.post(userLogin)
 
 router.route('/logout')
-	.post(userLogout)
+	.post(isLoggedIn, userLogout)
 
 router.route('/:id')
-	.get(getUser)
-	.patch(updateUser)
-	.delete(deleteUser)
+	.get(isLoggedIn, getUser)
+	.patch(isLoggedIn, updateUser)
+	.delete(isLoggedIn, deleteUser)
 
 router.route('/:id/updateVideos')
-	.patch(updateUserVideos)
+	.patch(isLoggedIn, updateUserVideos)
 
 router.route('/:id/updateCourses')
-	.patch(updateUserCourses)
+	.patch(isLoggedIn, updateUserCourses)
 
 module.exports = router
