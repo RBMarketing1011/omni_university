@@ -34,11 +34,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static(path.join(__dirname, 'assets')))
 app.use(cookieParser())
-app.use(cors({
-  origin: 'http://localhost:3000',
-  credentials: true,
-  optionsSuccessStatus: 200
-}))
+app.use(cors())
 
 // SESSION CONFIG SETTINGS
 app.use(
