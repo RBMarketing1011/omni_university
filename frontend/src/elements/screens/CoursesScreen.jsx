@@ -230,7 +230,7 @@ const CoursesScreen = () =>
       )
   } else if (isError)
   {
-    coursesContent = <p>{ error }</p>
+    coursesContent = <p>{ error.error }</p>
   }
 
   //initiate useUpdateUserMutation

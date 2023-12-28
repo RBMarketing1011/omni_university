@@ -114,7 +114,7 @@ const AdminUsersScreen = () =>
       )
   } else if (usersIsError)
   {
-    allUsersContent = <h3>{ usersError }</h3>
+    allUsersContent = <h3>{ usersError.error }</h3>
   }
 
   //======================================================Add User ================================

@@ -191,7 +191,7 @@ const ProfileScreen = () =>
 
   } else if (profileIsError)
   {
-    profile = <p>{ profileError }</p>
+    profile = <p>{ profileError.error }</p>
   }
 
   return (

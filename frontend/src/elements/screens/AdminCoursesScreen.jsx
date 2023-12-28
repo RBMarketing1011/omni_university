@@ -439,12 +439,6 @@ const AdminCoursesScreen = () =>
     allCoursesContent = <p>Loading...</p>
   } else if (allCoursesSuccess)
   {
-    // const filtered = courses.filter((course) => (
-
-
-    //   course.title.toLowerCase().includes(search.toLowerCase()) ||
-
-    // ))
 
     let searchStr = search.toLowerCase()
     const filtered = courses.filter(function search (row)
@@ -502,7 +496,7 @@ const AdminCoursesScreen = () =>
       </>
   } else if (allCoursesIsError)
   {
-    allCoursesContent = <p>{ allCoursesError }</p>
+    allCoursesContent = <p>{ allCoursesError.error }</p>
   }
 
 
