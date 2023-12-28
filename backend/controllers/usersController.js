@@ -108,7 +108,7 @@ module.exports.updateUser = asyncHandler(async (req, res) =>
 {
 	try
 	{
-		const { firstName, lastName, email, password, role } = req.body
+		const { firstName, lastName, email, password, role, completedOU } = req.body
 		const { id } = req.params
 		const user = await User.findByIdAndUpdate(id,
 			{
@@ -116,7 +116,8 @@ module.exports.updateUser = asyncHandler(async (req, res) =>
 					{ firstName, lastName },
 				email,
 				password,
-				role
+				role,
+				completedOU: completedOU
 			})
 
 		const sendUser = await User.findById(user._id).select('-password')

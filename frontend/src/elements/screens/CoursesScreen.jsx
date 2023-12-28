@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link, Form } from 'react-router-dom'
 import { toast } from 'react-toastify'
@@ -9,6 +9,7 @@ import { SelectField } from '../components/SelectField'
 
 import
 {
+  useUpdateUserMutation,
   useUpdateUserVideosMutation,
   useUpdateUserCoursesMutation
 } from '../../slices/usersApiSlice'
@@ -130,7 +131,6 @@ const CoursesScreen = () =>
         }
       }
     }
-
   }
 
   // SUBMIT FORM AND ADD ID OF VIDEO TO 'VIDEOSCOMPLETE' IF CORRECT ANSWERS GIVEN
@@ -160,6 +160,12 @@ const CoursesScreen = () =>
           resetForm()
           toast.success('Congrats, You Passed')
 
+          //Refetch Courses To Update
+          coursesRefetch()
+
+          //Rerun checkIfOmniUCompleted
+          setRunCompleted(false)
+
           //CHECK IF COURSE COMPLETED
           let videos = []
 
@@ -181,14 +187,17 @@ const CoursesScreen = () =>
     }
   }
 
+
   //======================GET ALL COURSES AND COURSE VIDEOS================================
   let coursesContent
+  let allCourses = []
   const {
     data: courses,
     isLoading,
     isSuccess,
     isError,
-    error
+    error,
+    refetch: coursesRefetch
   } = useGetAllCoursesQuery()
 
   if (isLoading)
@@ -196,8 +205,8 @@ const CoursesScreen = () =>
     coursesContent = <p>Loading...</p>
   } else if (isSuccess)
   {
-
     //==========================================================================================
+    courses.map(course => allCourses.push(course._id))
     // coursesContent returned from query
     coursesContent =
       (
@@ -224,6 +233,57 @@ const CoursesScreen = () =>
     coursesContent = <p>{ error }</p>
   }
 
+  //initiate useUpdateUserMutation
+  const [ updateUser ] = useUpdateUserMutation()
+  const [ runCompleted, setRunCompleted ] = useState(false)
+
+  const omniUCompleted = async () =>
+  {
+    try
+    {
+      const res = await updateUser({
+        id: userInfo._id,
+        firstName: userInfo.name.firstName,
+        lastName: userInfo.name.lastName,
+        completedOU: true
+      }).unwrap()
+      dispatch(setCredentials({ ...res }))
+    } catch (err)
+    {
+      toast.error(err?.data?.message || err.error)
+    }
+  }
+
+  const omniUNotCompleted = async () =>
+  {
+    try
+    {
+      const res = await updateUser({
+        id: userInfo._id,
+        firstName: userInfo.name.firstName,
+        lastName: userInfo.name.lastName,
+        completedOU: false
+      }).unwrap()
+      dispatch(setCredentials({ ...res }))
+    } catch (err)
+    {
+      toast.error(err?.data?.message || err.error)
+    }
+  }
+
+  useEffect(() =>
+  {
+    if (allCourses.length === userInfo.omniUProgress.coursesComplete.length && !runCompleted)
+    {
+      omniUCompleted()
+      setRunCompleted(true)
+    } else if (allCourses.length !== userInfo.omniUProgress.coursesComplete.length && !runCompleted)
+    {
+      omniUNotCompleted()
+      setRunCompleted(true)
+    }
+    // Adding runCompleted to the dependencies array ensures that the effect doesn't re-run when it's set to true
+  }, [ allCourses.length, userInfo.omniUProgress.coursesComplete.length, runCompleted ])
 
   return (
     <div className='CoursesScreen'>

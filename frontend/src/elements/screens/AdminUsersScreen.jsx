@@ -92,7 +92,7 @@ const AdminUsersScreen = () =>
                   </div>
                   <div className="user-completion">
                     <h4>Completed Omni U</h4>
-                    { user.completedOU ? <p>Completed Omni U</p> : <p>Not Completed</p> }
+                    { user.completedOU ? <p>Completed</p> : <p>Not Completed</p> }
                   </div>
                   <div className="user-completed-courses">
                     <h4>Courses Completed</h4>
