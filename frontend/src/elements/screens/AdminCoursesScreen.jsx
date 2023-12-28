@@ -26,7 +26,7 @@ import '../css/AdminCoursesScreen.css'
 
 const AdminCoursesScreen = () =>
 {
-  // ================================================= SEARCH FUNCTIONALITY =================
+  // ================================ SEARCH FUNCTIONALITY =================
   const [ search, setSearch ] = useState('')
 
   const searchBoxHandler = (e) =>
@@ -34,8 +34,8 @@ const AdminCoursesScreen = () =>
     setSearch(e.target.value)
   }
 
-  // ================================================= ALL DATA FOR VIDEOS CRUD OPS =================
-  //===================================================CREATE VIDEO SECTION=====================
+  // ============================= ALL DATA FOR VIDEOS CRUD OPS =================
+  //====================================CREATE VIDEO SECTION=====================
   //Videos mutations
   const [ createVideo ] = useCreateVideoMutation()
 
@@ -439,12 +439,6 @@ const AdminCoursesScreen = () =>
     allCoursesContent = <p>Loading...</p>
   } else if (allCoursesSuccess)
   {
-    // const filtered = courses.filter((course) => (
-
-
-    //   course.title.toLowerCase().includes(search.toLowerCase()) ||
-
-    // ))
 
     let searchStr = search.toLowerCase()
     const filtered = courses.filter(function search (row)
