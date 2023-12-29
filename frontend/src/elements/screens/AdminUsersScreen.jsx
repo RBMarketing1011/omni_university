@@ -363,6 +363,19 @@ const AdminUsersScreen = () =>
                       <div className="content">
                         <PasswordField placeholder='Password' state={ password } onChangeHandler={ (e) => passwordStateHandler(e) } />
                       </div>
+                      <div className="password">
+                        <div className="pw-title">
+                          <h3 className='text-center'>Password must contain the following:</h3>
+                        </div>
+                        <div className="pw-conditions">
+                          <p>one digit from 1 to 9</p>
+                          <p>one lowercase letter</p>
+                          <p>one uppercase letter</p>
+                          <p>one special character</p>
+                          <p>no space</p>
+                          <p>must be 8-16 characters long</p>
+                        </div>
+                      </div>
                     </div>
                     <div className="form-group" style={ { marginTop: '0' } }>
                       <div className="title">
