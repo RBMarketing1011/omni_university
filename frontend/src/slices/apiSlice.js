@@ -4,8 +4,7 @@ import { fetchBaseQuery, createApi } from '@reduxjs/toolkit/query/react'
 //set it to reducerPath: 'api' on the createApi variable
 const baseQuery = fetchBaseQuery({
 	baseUrl: `${ process.env.URL }/api`,
-	credentials: 'include',
-	jsonContentType: 'application/json'
+	credentials: 'include'
 })
 
 export const apiSlice = createApi({

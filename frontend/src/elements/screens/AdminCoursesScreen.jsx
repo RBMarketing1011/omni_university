@@ -26,7 +26,7 @@ import '../css/AdminCoursesScreen.css'
 
 const AdminCoursesScreen = () =>
 {
-  // ================================================= SEARCH FUNCTIONALITY =================
+  // ================================ SEARCH FUNCTIONALITY =================
   const [ search, setSearch ] = useState('')
 
   const searchBoxHandler = (e) =>
@@ -34,8 +34,8 @@ const AdminCoursesScreen = () =>
     setSearch(e.target.value)
   }
 
-  // ================================================= ALL DATA FOR VIDEOS CRUD OPS =================
-  //===================================================CREATE VIDEO SECTION=====================
+  // ============================= ALL DATA FOR VIDEOS CRUD OPS =================
+  //====================================CREATE VIDEO SECTION=====================
   //Videos mutations
   const [ createVideo ] = useCreateVideoMutation()
 

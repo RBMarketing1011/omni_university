@@ -35,7 +35,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.static(path.join(__dirname, 'assets')))
 app.use(cookieParser())
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: 'https://omni-university.com',
   credentials: true,
   optionsSuccessStatus: 200
 }))
@@ -63,7 +63,6 @@ app.use((req, res, next) =>
 if (process.env.NODE_ENV === 'production')
 {
   const __dirname = path.resolve()
-  console.log(__dirname)
   app.use(express.static(path.join(__dirname, 'frontend', 'dist')))
 
   app.get('*', (req, res) =>
