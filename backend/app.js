@@ -35,14 +35,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.static(path.join(__dirname, 'assets')))
 app.use(cookieParser())
 app.use(cors({
-<<<<<<< HEAD
   origin: 'http://localhost:3000',
-=======
-  origin: [
-    'https://omni-university.com',
-    'https://www.omni-university.com'
-  ],
->>>>>>> 1b9a99e97ab8e2b3da724d405c6c5cad659ebcd8
   credentials: true,
   optionsSuccessStatus: 200
 }))
