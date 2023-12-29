@@ -29,7 +29,7 @@ module.exports.getCourse = asyncHandler(async (req, res) =>
 	{
 		const { id } = req.params
 		const course = await Course.findById(id)
-		res.json(course)
+		res.status(200).json(course)
 	} catch (err)
 	{
 		res.status(401)
@@ -62,7 +62,7 @@ module.exports.updateCourse = asyncHandler(async (req, res) =>
 	{
 		const { title } = req.body
 		const { id } = req.params
-		const updateCourse = await Course.findByIdAndUpdate(id, { title })
+		await Course.findByIdAndUpdate(id, { title })
 		res.status(200).json({ message: 'Course Updated Successfully' })
 	} catch (err)
 	{
@@ -80,7 +80,7 @@ module.exports.deleteCourse = asyncHandler(async (req, res) =>
 	{
 		const { id } = req.params
 		const deleteCourse = await Course.findByIdAndDelete(id)
-		res.json(deleteCourse)
+		res.status(200).json(deleteCourse)
 	} catch (err)
 	{
 		res.status(401)
