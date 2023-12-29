@@ -8,7 +8,7 @@
   position: sticky;
   top: 0;
   background: var(--light);
-  z-index: 100;
+  z-index: 9;
 }
 
 .Header nav {
