@@ -7,9 +7,9 @@ const genToken = (res, userId) =>
 	})
 
 	cookieOptions = {
-		httpOnly: true,
+		httpOnly: false,
 		secure: process.env.NODE_ENV !== 'development',
-		sameSite: false,
+		sameSite: 'strict',
 		maxAge: 1 * 24 * 60 * 60 * 1000
 	}
 
