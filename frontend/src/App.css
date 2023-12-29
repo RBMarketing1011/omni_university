@@ -1,6 +1,6 @@
 /* Utility classes */
 .page-container {
-  width: min(90vw, 1400px);
+  width: min(90vw);
   margin-top: 50px;
 }
 
