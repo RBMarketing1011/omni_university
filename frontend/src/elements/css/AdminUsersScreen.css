@@ -48,3 +48,22 @@
 .AdminUsersScreen svg {
   cursor: pointer;
 }
+
+.AdminUsersScreen .password {
+  width: calc(100% - 1rem);
+  margin-block: .5rem;
+}
+
+.AdminUsersScreen .pw-conditions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-block: .2rem;
+}
+
+.AdminUsersScreen .pw-conditions p {
+  width: max-content;
+  margin-block: .3rem;
+  border-bottom: 1px solid var(--dark);
+}

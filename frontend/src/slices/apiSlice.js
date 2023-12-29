@@ -5,7 +5,6 @@ import { fetchBaseQuery, createApi } from '@reduxjs/toolkit/query/react'
 const baseQuery = fetchBaseQuery({
 	baseUrl: 'http://localhost:5173/api',
 	credentials: 'include',
-	jsonContentType: 'application/json'
 })
 
 export const apiSlice = createApi({
