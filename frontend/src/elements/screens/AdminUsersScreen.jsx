@@ -368,12 +368,16 @@ const AdminUsersScreen = () =>
                           <h3 className='text-center'>Password must contain the following:</h3>
                         </div>
                         <div className="pw-conditions">
-                          <p>one digit from 1 to 9</p>
-                          <p>one lowercase letter</p>
-                          <p>one uppercase letter</p>
-                          <p>one special character</p>
-                          <p>no space</p>
-                          <p>must be 8-16 characters long</p>
+                          <div>
+                            <p>no space</p>
+                            <p>one digit from 1 to 9</p>
+                            <p>one lowercase letter</p>
+                          </div>
+                          <div>
+                            <p>one uppercase letter</p>
+                            <p>one special character</p>
+                            <p>must be 8-16 characters</p>
+                          </div>
                         </div>
                       </div>
                     </div>

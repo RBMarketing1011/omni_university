@@ -58,8 +58,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
   margin-block: .2rem;
+}
+
+.AdminUsersScreen .pw-conditions div {
+  width: 50%;
+  text-align: left;
 }
 
 .AdminUsersScreen .pw-conditions p {
