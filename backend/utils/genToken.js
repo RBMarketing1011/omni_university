@@ -14,8 +14,6 @@ const genToken = (res, userId) =>
 	}
 
 	res.cookie('jwtToken', token, cookieOptions)
-
-	console.log(res + '    ' + userId)
 }
 
 module.exports = genToken
