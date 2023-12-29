@@ -35,7 +35,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.static(path.join(__dirname, 'assets')))
 app.use(cookieParser())
 app.use(cors({
-  origin: 'https://omni-university.com',
+  origin: process.env.FRONTEND_URL,
   credentials: true,
   optionsSuccessStatus: 200
 }))
@@ -69,6 +69,8 @@ if (process.env.NODE_ENV === 'production')
   {
     res.redirect('/')
   })
+
+  console.log('production ready')
 } else
 {
   //URL Mapping
