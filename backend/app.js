@@ -35,7 +35,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.static(path.join(__dirname, 'assets')))
 app.use(cookieParser())
 app.use(cors({
-  origin: process.env.FRONTEND_URL,
+  origin: 'http://localhost:3000',
   credentials: true,
   optionsSuccessStatus: 200
 }))
@@ -60,6 +60,13 @@ app.use((req, res, next) =>
   next()
 })
 
+//User Routes
+app.use('/api/users', userRoutes)
+//Course Routes
+app.use('/api/courses', courseRoutes)
+//Video Routes
+app.use('/api/courses', videoRoutes)
+
 if (process.env.NODE_ENV === 'production')
 {
   const __dirname = path.resolve()
@@ -67,7 +74,7 @@ if (process.env.NODE_ENV === 'production')
 
   app.get('*', (req, res) =>
   {
-    res.redirect('/')
+    res.sendFile(__dirname, 'frontend', 'dist', 'index.html')
   })
 
   console.log('production ready')
@@ -79,13 +86,6 @@ if (process.env.NODE_ENV === 'production')
     res.send('Server Is Ready')
   })
 }
-
-//User Routes
-app.use('/api/users', userRoutes)
-//Course Routes
-app.use('/api/courses', courseRoutes)
-//Video Routes
-app.use('/api/courses', videoRoutes)
 
 // MIDDLEWARE SETUP
 app.all('*', (req, res, next) =>
