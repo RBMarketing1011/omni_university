@@ -17,14 +17,14 @@ const DashboardScreen = () =>
     isLoading,
     isSuccess,
     isError,
-    error,
-    refetch
+    error
   } = useGetAllCoursesQuery()
 
   let coursesContent
   let coursesCompleted
   let coursesNotCompleted
   let progress = []
+
   if (isLoading)
   {
     coursesContent = <p>Loading...</p>
@@ -88,7 +88,8 @@ const DashboardScreen = () =>
     )
   } else if (isError)
   {
-    coursesContent = <p>{ error }</p>
+    coursesContent = <p>{ error.error }</p>
+    console.log(error)
   }
 
   //======================calculate % func()==============================

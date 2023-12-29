@@ -496,7 +496,7 @@ const AdminCoursesScreen = () =>
       </>
   } else if (allCoursesIsError)
   {
-    allCoursesContent = <p>{ allCoursesError }</p>
+    allCoursesContent = <p>{ allCoursesError.error }</p>
   }
 
 
