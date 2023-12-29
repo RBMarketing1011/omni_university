@@ -20,6 +20,13 @@ const users = new Schema({
   },
   password: {
     type: String,
+    validate: {
+      validator: function (v)
+      {
+        return /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,16}$/.test(v)
+      },
+      message: 'Please Enter A Valid Password'
+    },
     required: true,
   },
   role: {

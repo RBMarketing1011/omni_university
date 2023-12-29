@@ -35,10 +35,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.static(path.join(__dirname, 'assets')))
 app.use(cookieParser())
 app.use(cors({
-  origin: [
-    'https://omni-university.com',
-    'https://www.omni-university.com'
-  ],
+  origin: 'http://localhost:3000',
   credentials: true,
   optionsSuccessStatus: 200
 }))
@@ -69,6 +66,7 @@ app.use('/api/users', userRoutes)
 app.use('/api/courses', courseRoutes)
 //Video Routes
 app.use('/api/courses', videoRoutes)
+
 
 //Setup production vs dev environment
 if (process.env.NODE_ENV === 'production')
