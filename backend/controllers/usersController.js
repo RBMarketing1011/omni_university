@@ -96,7 +96,7 @@ module.exports.getAllUsers = asyncHandler(async (req, res) =>
 		res.status(200).json({ allUsers }) //Format Properly
 	} catch (err)
 	{
-		res.status(400)
+		res.status(401)
 		throw new Error('No Users Exist')
 	}
 })

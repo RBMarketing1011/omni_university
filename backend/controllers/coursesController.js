@@ -11,11 +11,12 @@ module.exports.createCourse = asyncHandler(async (req, res) =>
 
 	try
 	{
-		const newCourse = await Course.create({ title, videos })
+		await Course.create({ title, videos })
 		res.status(200).json({ message: 'Created New Course' })
 	} catch (err)
 	{
-		res.status(401).send(err.message)
+		res.status(401)
+		throw new Error('Could Not Create New Course')
 	}
 })
 
@@ -28,10 +29,11 @@ module.exports.getCourse = asyncHandler(async (req, res) =>
 	{
 		const { id } = req.params
 		const course = await Course.findById(id)
-		res.send(course)
+		res.json(course)
 	} catch (err)
 	{
-		res.send(err.message)
+		res.status(401)
+		throw new Error('Could Not Find Course')
 	}
 })
 
@@ -46,7 +48,8 @@ module.exports.getAllCourses = asyncHandler(async (req, res) =>
 		res.status(200).json(allCourses)
 	} catch (err)
 	{
-		res.send(err.message)
+		res.status(401)
+		throw new Error('Could Not Find Courses')
 	}
 })
 
@@ -63,7 +66,8 @@ module.exports.updateCourse = asyncHandler(async (req, res) =>
 		res.status(200).json({ message: 'Course Updated Successfully' })
 	} catch (err)
 	{
-		res.send(err.message)
+		res.status(401)
+		throw new Error('Could Not Update Course')
 	}
 })
 
@@ -76,9 +80,10 @@ module.exports.deleteCourse = asyncHandler(async (req, res) =>
 	{
 		const { id } = req.params
 		const deleteCourse = await Course.findByIdAndDelete(id)
-		res.send(deleteCourse)
+		res.json(deleteCourse)
 	} catch (err)
 	{
-		res.send(err.message)
+		res.status(401)
+		throw new Error('Could Not Delete Course')
 	}
 })

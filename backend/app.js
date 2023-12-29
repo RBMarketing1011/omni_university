@@ -60,12 +60,24 @@ app.use((req, res, next) =>
   next()
 })
 
-
-//URL Mapping
-app.get('/', (req, res) =>
+if (process.env.NODE_ENV === 'production')
 {
-  res.send('Hello')
-})
+  const __dirname = path.resolve()
+  console.log(__dirname)
+  app.use(express.static(path.join(__dirname, 'frontend', 'dist')))
+
+  app.get('*', (req, res) =>
+  {
+    res.redirect('/')
+  })
+} else
+{
+  //URL Mapping
+  app.get('/', (req, res) =>
+  {
+    res.send('Server Is Ready')
+  })
+}
 
 //User Routes
 app.use('/api/users', userRoutes)
