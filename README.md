@@ -43,22 +43,17 @@ A step-by-step series of examples that tell you how to get a development environ
 4. Setup Your .env for enironment variables (need NODE_ENV, PORT, MONGO_URI, SESSION_SECRET, JWT_SECRET)
 5. Run the backend server:
    ```
-   npm start
+   npm run all
    ```
-6. Run the frontend application:
-   ```
-   cd ../frontend
-   npm start
-   ```
-7. Visit `http://localhost:3000` in your browser.
-8. OR to run production build
+6. Visit `http://localhost:3000` in your browser.
+7. OR to run production build
    ```
    change .env NODE_ENV to 'production'
    
    cd backend
    npm run server
    ```
-9. Visit `http://localhost:5173` in your browser.
+8. Visit `http://localhost:5173` in your browser.
 
 ## Usage
 
