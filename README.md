@@ -40,7 +40,7 @@ A step-by-step series of examples that tell you how to get a development environ
    cd ../frontend
    npm install
    ```
-4. Start the MongoDB server in a separate terminal.
+4. Setup Your .env for enironment variables (need NODE_ENV, PORT, MONGO_URI, SESSION_SECRET, JWT_SECRET)
 5. Run the backend server:
    ```
    npm start
@@ -51,21 +51,17 @@ A step-by-step series of examples that tell you how to get a development environ
    npm start
    ```
 7. Visit `http://localhost:3000` in your browser.
+8. OR to run production build
+   ```
+   cd backend
+   npm run server
+   ```
+9. Visit `http://localhost:5173` in your browser.
 
 ## Usage
 
-Describe how to use the application, including any specific login credentials for testing, navigating through the application, and any important features.
-
-## Contributing
-
-If you would like to contribute to the development of Omni University, please follow these steps:
-
-1. Fork the repository.
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`).
-3. Make your changes.
-4. Commit your changes (`git commit -m 'Add some AmazingFeature'`).
-5. Push to the branch (`git push origin feature/AmazingFeature`).
-6. Open a pull request.
+### This app is used as a training platform for restaurants. The 'Admin' or 'Manager' roles can create all CRUD operation on Users, Courses, and Videos
+### Users can not create their own accounts, an admin or manager must create their account for them
 
 ## License
 
@@ -73,4 +69,4 @@ This project is licensed under the Creative Commons Attribution-NonCommercial-No
 
 ## Acknowledgments
 
-- Big thanks to Colt Steele and Brad Traversy who I learned how to code from.
+- Big thanks to Colt Steele and Brad Traversy who have helped me grow in my development carrer.
