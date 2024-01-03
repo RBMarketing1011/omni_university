@@ -53,6 +53,8 @@ A step-by-step series of examples that tell you how to get a development environ
 7. Visit `http://localhost:3000` in your browser.
 8. OR to run production build
    ```
+   change .env NODE_ENV to 'production'
+   
    cd backend
    npm run server
    ```
