@@ -8,11 +8,11 @@
   position: sticky;
   top: 0;
   background: var(--light);
-  z-index: 100;
+  z-index: 9;
 }
 
 .Header nav {
-  width: min(90vw, 1400px);
+  width: min(80vw);
   display: flex;
   justify-content: space-between;
   align-items: center;
