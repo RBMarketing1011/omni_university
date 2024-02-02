@@ -28,8 +28,8 @@ const Header = () =>
 			setMenu(!menu)
 		} else
 		{
-			navRef.current.style.left = '110%'
-			profileRef.current.style.left = '110%'
+			navRef.current.style.left = '100vw'
+			profileRef.current.style.left = '100vw'
 			setMenu(!menu)
 		}
 	}
