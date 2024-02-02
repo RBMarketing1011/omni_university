@@ -124,3 +124,45 @@
 .CoursesScreen .videos .card-body .btn-group {
   width: 25%;
 }
+
+/* Mobile */
+@media (max-width: 600px) {
+  .CoursesScreen {
+    flex-direction: column;
+    gap: 1rem;
+
+    margin-bottom: 80px;
+  }
+
+  .CoursesScreen .courses {
+    width: 100%;
+    height: max-content;
+  }
+
+  .CoursesScreen .videos {
+    height: max-content;
+    width: 100%;
+  }
+
+  .CoursesScreen .videos .container-video {
+    width: 100%;
+    margin-block: 1rem;
+  }
+
+  .CoursesScreen .videos .card-body {
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .CoursesScreen .videos .card-body .card-form {
+    width: 100%;
+  }
+
+  .CoursesScreen .videos .card-body .card-container {
+    width: 100%;
+  }
+
+  .CoursesScreen .videos .card-body .btn-group {
+    width: 100%;
+  }
+}

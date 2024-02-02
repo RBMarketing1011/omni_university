@@ -66,3 +66,72 @@
 .Header .profile p {
   margin-right: 1rem;
 }
+
+.Header .menu {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .Header nav {
+    display: flex;
+  }
+
+  .Header .brand {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .Header .brand::before {
+    top: -2vh;
+    width: 18.5vw;
+  }
+
+  .Header .brand::after {
+    bottom: -2vh;
+    width: 28.5vw;
+  }
+
+  .Header .menu {
+    display: block;
+  }
+
+  .Header .navlinks,
+  .Header .navlink,
+  .Header .profile {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 1rem;
+
+    margin-inline: 0;
+  }
+
+  .Header .navlinks {
+    position: absolute;
+    width: 100vw;
+    top: 100px;
+    left: 110%;
+    min-height: 100vh;
+
+    font-size: 2rem;
+
+    background: var(--light);
+    border-bottom: 1.5px solid var(--main-red);
+
+    transition: .3s ease;
+  }
+
+  .Header .profile {
+    width: 100vw;
+    position: absolute;
+    top: 50vh;
+    left: 110%;
+
+    font-size: 2rem;
+
+    background: var(--light);
+
+    transition: .3s ease;
+  }
+}

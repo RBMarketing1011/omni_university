@@ -42,3 +42,25 @@
   border-bottom: 3px solid var(--dark);
   width: max-content;
 }
+
+/* Mobile View */
+@media(max-width: 600px){
+  .HomeScreen {
+  margin-inline: 0;
+}
+
+.HomeScreen .ou-directions * {
+  margin-block: 1rem;
+}
+
+.HomeScreen .ou-directions h2 {
+  margin-top: 3rem;
+  border-bottom: 2px solid var(--heading-color);
+}
+
+.HomeScreen .ou-directions h3 {
+  margin-top: 2rem;
+  border-bottom: 3px solid var(--dark);
+  width: max-content;
+}
+}

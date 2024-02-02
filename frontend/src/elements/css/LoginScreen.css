@@ -3,3 +3,22 @@
   justify-content: center;
   align-items: center;
 }
+
+@media (max-width: 600px) {
+  .LoginScreen {
+    width: 100%;
+  }
+
+  .LoginScreen .card {
+    height: max-content;
+    max-height: max-content;
+  }
+
+  .LoginScreen .card .card-body form {
+    gap: 1rem;
+  }
+
+  .LoginScreen .card .card-body .btn-primary {
+    margin: 0;
+  }
+}

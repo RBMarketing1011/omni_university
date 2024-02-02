@@ -84,3 +84,10 @@ p, a, i {
     scroll-behavior: auto !important;
   }
 }
+
+@media (max-width: 600px) {
+  html,
+  body {
+    overflow-x: initial;
+  }
+}

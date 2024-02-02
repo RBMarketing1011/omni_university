@@ -1,6 +1,7 @@
+import { useState, useRef } from 'react'
 import { NavLink, Link, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { FaArrowRightToBracket, FaArrowRightFromBracket, FaRegCircleUser } from 'react-icons/fa6'
+import { FaArrowRightToBracket, FaArrowRightFromBracket, FaBarsStaggered, FaBars } from 'react-icons/fa6'
 import { toast } from 'react-toastify'
 
 import { useLogoutMutation } from '../../slices/usersApiSlice'
@@ -12,6 +13,26 @@ const Header = () =>
 {
 	// initiate userInfo from state.auth
 	const { userInfo } = useSelector((state) => state.auth)
+
+	//state and ref for mobile menu 
+	const [ menu, setMenu ] = useState(false)
+	const navRef = useRef(null)
+	const profileRef = useRef(null)
+
+	const menuHandler = () =>
+	{
+		if (!menu)
+		{
+			navRef.current.style.left = '0'
+			profileRef.current.style.left = '0'
+			setMenu(!menu)
+		} else
+		{
+			navRef.current.style.left = '110%'
+			profileRef.current.style.left = '110%'
+			setMenu(!menu)
+		}
+	}
 
 	//set dispatch and navigate func()
 	const navigate = useNavigate()
@@ -42,20 +63,23 @@ const Header = () =>
 					<Link to='/'>
 						<img src="/OCE_Shade.svg" alt="OCE Logo" />
 					</Link>
+					<div className="menu">
+						<FaBarsStaggered onClick={ menuHandler } />
+					</div>
 				</div>
-				<div className="navlinks flex-center">
-					<NavLink className='navlink' to='/'>Instructions</NavLink>
-					<NavLink className='navlink' to='/dashboard'>Dashboard</NavLink>
-					<NavLink className='navlink' to='/courses'>Courses</NavLink>
+				<div className="navlinks flex-center" ref={ navRef }>
+					<NavLink className='navlink' to='/' onClick={ menuHandler }>Instructions</NavLink>
+					<NavLink className='navlink' to='/dashboard' onClick={ menuHandler }>Dashboard</NavLink>
+					<NavLink className='navlink' to='/courses' onClick={ menuHandler }>Courses</NavLink>
 				</div>
-				<div className="profile flex-end">
+				<div className="profile flex-end" ref={ profileRef }>
 					{ userInfo ?
-						<Link className='flex-end' onClick={ logoutHandler }>
+						<Link className='flex-end' onClick={ () => { logoutHandler(), menuHandler() } }>
 							<p>Sign Out</p>
 							<FaArrowRightFromBracket />
 						</Link>
 						:
-						<Link className='flex-end' to='/login'>
+						<Link className='flex-end' to='/login' onClick={ menuHandler }>
 							<p>Sign In</p>
 							<FaArrowRightToBracket />
 						</Link>
