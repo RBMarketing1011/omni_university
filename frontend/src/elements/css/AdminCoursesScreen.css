@@ -90,3 +90,76 @@
   color: var(--accent);
   transition: .2s ease;
 }
+
+/* Mobile */
+@media (max-width: 600px) {
+  .AdminCoursesScreen {
+    margin-bottom: 80px;
+  }
+
+  .AdminCoursesScreen .flex-between {
+    flex-direction: column-reverse;
+    gap: 2rem;
+  }
+
+  .AdminCoursesScreen .card,
+  .AdminCoursesScreen .card .card-body {
+    height: max-content;
+    max-height: 100vh;
+  }
+
+  .AdminCoursesScreen .card .btn-group {
+    flex-direction: column;
+  }
+
+  .AdminCoursesScreen .courses-content {
+    height: max-content;
+    width: 100%;
+  }
+
+  .AdminCoursesScreen .courses-content .courses-title {
+    width: 100%;
+  }
+
+  .AdminCoursesScreen .courses-content .courses-title .heading {
+    font-size: 2rem;
+    text-align: left;
+  }
+
+  .AdminCoursesScreen .courses-content .courses-accordian {
+    height: max-content;
+    padding: 1rem;
+  }
+
+  .AdminCoursesScreen .courses-accordian .accordian-item {
+    width: 100%;
+    padding: .5rem;
+  }
+
+  .AdminCoursesScreen .courses-accordian .accordian-title h1 {
+    font-size: 1.5rem;
+  }
+
+  .AdminCoursesScreen .courses-accordian .accordian-icons {
+    gap: 1rem;
+    width: max-content;
+  }
+
+  .AdminCoursesScreen .courses-accordian .accordian-content {
+    gap: .5rem;
+  }
+
+  .AdminCoursesScreen .courses-accordian .accordian-content .content {
+    width: 100%;
+  }
+
+  .AdminCoursesScreen .courses-accordian .accordian-content .content h2 {
+    font-size: 1rem;
+  }
+
+  .AdminCoursesScreen .accordian-content svg,
+  .AdminCoursesScreen .accordian-content .add-video svg {
+    height: 15px;
+    width: 15px;
+  }
+}

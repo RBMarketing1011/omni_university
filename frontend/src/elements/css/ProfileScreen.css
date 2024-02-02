@@ -18,3 +18,40 @@
   justify-content: space-evenly;
   align-items: center;
 }
+
+@media (max-width: 600px) {
+  .ProfileScreen {
+    margin-bottom: 80px;
+  }
+
+  .ProfileScreen .card .card-header {
+    align-items: flex-end;
+  }
+
+  .ProfileScreen .card-header .header-title h4 {
+    font-size: 1.5rem;
+  }
+
+  .ProfileScreen .card,
+  .ProfileScreen .card .card-body {
+    height: max-content;
+    max-height: max-content;
+  }
+
+  .ProfileScreen .card-body .form-group .content p {
+    font-size: 1.2rem;
+    text-align: left;
+  }
+
+  .ProfileScreen .card .card-footer {
+    height: max-content;
+    flex-direction: column-reverse;
+
+    gap: 1rem;
+  }
+
+  .ProfileScreen .card .card-footer .footer-group h4,
+  .ProfileScreen .card .card-footer .footer-group p {
+    width: 100%;
+  }
+}

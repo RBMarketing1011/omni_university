@@ -107,8 +107,67 @@
   margin-bottom: .3rem;
 }
 
-.DashboardScreen .card .card-body .userInfo .navlink {
-  font-size: 1.5rem;
-  margin-left: 0;
-  width: max-content;
+/* Mobile */
+@media (max-width: 600px) {
+  .DashboardScreen {
+    position: relative;
+  }
+
+  .DashboardScreen .card {
+    height: max-content !important;
+    max-height: max-content !important;
+    margin-bottom: 80px;
+  }
+
+  .DashboardScreen .card .card-body {
+    flex-direction: column;
+  }
+
+  .DashboardScreen .card-header {
+    align-items: flex-end !important;
+  }
+
+  .DashboardScreen .header-title {
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    gap: 0;
+  }
+
+  .DashboardScreen .header-title h4 {
+    font-size: 1.3rem !important;
+  }
+
+  .DashboardScreen .header-title .progress {
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: max-content;
+
+    box-shadow: none;
+
+    padding: 0;
+  }
+
+  .DashboardScreen .header-title .progress h3 {
+    font-size: .8rem;
+    white-space: nowrap;
+  }
+
+  .DashboardScreen .header-title .progress .bar {
+    height: 20px;
+    padding: .2rem;
+  }
+
+  .DashboardScreen .card .card-body .userInfo {
+    padding-right: 0;
+  }
+
+  .DashboardScreen .card .card-body .userInfo h2,
+  .DashboardScreen .card .card-body .userInfo .title h4 {
+    text-align: left;
+  }
+
+  .DashboardScreen .card .card-body .courses {
+    width: 100%;
+  }
 }
