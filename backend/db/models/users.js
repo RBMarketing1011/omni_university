@@ -20,14 +20,24 @@ const users = new Schema({
   },
   password: {
     type: String,
-    validate: {
-      validator: function (v)
-      {
-        return /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,16}$/.test(v)
-      },
-      message: 'Please Enter A Valid Password'
-    },
-    required: true,
+    // validate: {
+    //   validator: (v) =>
+    //   {
+    //     // return /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,16}$/.test(v)
+    //     if (
+    //       !v.includes(' ') &&
+    //       v.includes(Number) &&
+    //       v.includes()
+    //     )
+    //     {
+    //       return true
+    //     } else
+    //     {
+    //       return false
+    //     }
+    //   },
+    // },
+    required: [ true, 'Please Enter A Valid Password' ],
   },
   role: {
     type: String,
@@ -73,7 +83,7 @@ users.pre("save", async function (next)
 
   if (!this.isModified('password'))
   {
-    next()
+    return next()
   }
 
   const salt = await bcrypt.genSalt(10)

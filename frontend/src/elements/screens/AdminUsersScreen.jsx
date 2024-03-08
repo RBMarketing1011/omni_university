@@ -165,16 +165,24 @@ const AdminUsersScreen = () =>
   {
     e.preventDefault()
 
-    try
+    if (/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,16}$/.test(password))
     {
-      await registerUser({ firstName, lastName, email, password, role }).unwrap()
-      resetState()
-      refetchUsers()
-      toast.success('Added New User Successfully')
-    } catch (err)
+      try
+      {
+        await registerUser({ firstName, lastName, email, password, role }).unwrap()
+        resetState()
+        refetchUsers()
+        toast.success('Added New User Successfully')
+      } catch (err)
+      {
+        toast.error(err?.data?.message || err.error)
+      }
+    } else
     {
-      toast.error(err?.data?.message || err.error)
+      toast.error('Please Enter Valid Password')
     }
+
+
   }
 
   //========================================================UPDATE USER============================
