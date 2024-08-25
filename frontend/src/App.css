@@ -6,6 +6,7 @@
 
 .navlink {
   color: var(--dark);
+  
   font-weight: 600;
   transition: .3s ease;
   position: relative;
